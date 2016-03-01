@@ -110,6 +110,7 @@ namespace FlashBuyWebAPI.Controllers
             c.IMEI = IMEI;
             c.Token = GeraToken(IMEI);
 
+
             db.Cliente.Add(c);
             if (db.SaveChanges() > 0)
                 return Ok(c);
