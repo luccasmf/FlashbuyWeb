@@ -105,7 +105,7 @@ namespace FlashBuyWebAPI.Controllers
         // POST: api/Clientes/PostLogin?IMEI=12345
         //valida se usuário já está cadastrado, caso não esteja, cadastra no banco
         [ResponseType(typeof(Cliente))]
-        public IHttpActionResult PostLogin(string IMEI)
+        public IHttpActionResult PostLogin(string IMEI) //IMEI codificado em MD5
         {
             try
             {
@@ -119,7 +119,6 @@ namespace FlashBuyWebAPI.Controllers
             {
                 Cliente c = new Cliente();
                 c.IMEI = IMEI;
-                c.Token = GeraToken();
 
 
                 db.Cliente.Add(c);
@@ -129,22 +128,7 @@ namespace FlashBuyWebAPI.Controllers
                     return NotFound();
             }
         }
-
-        //gera um token random que vai ser usado no QRCode
-        private string GeraToken()
-        {
-            Random r = new Random();
-
-            while(true)
-            {
-               string tk = r.Next(10000000,99999999).ToString();
-               if(db.Cliente.Where(c => c.Token == tk).Count() <1)
-                {
-                    return tk;
-                }
-            }
-            return "";
-        }
+      
         // DELETE: api/Clientes/5
         [ResponseType(typeof(Cliente))]
         public IHttpActionResult DeleteCliente(int id)
