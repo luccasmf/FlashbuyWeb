@@ -78,10 +78,6 @@ namespace FlashBuyClassLibrary
                 .IsUnicode(false);
 
             modelBuilder.Entity<Cliente>()
-                .Property(e => e.Token)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Cliente>()
                 .HasMany(e => e.Compra)
                 .WithRequired(e => e.Cliente)
                 .WillCascadeOnDelete(false);
