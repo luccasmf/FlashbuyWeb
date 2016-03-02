@@ -102,8 +102,12 @@ namespace FlashBuyWebAPI.Controllers
             return CreatedAtRoute("DefaultApi", new { id = cliente.IdCliente }, cliente);
         }
 
-        // POST: api/Clientes/PostLogin?IMEI=12345
-        //valida se usuário já está cadastrado, caso não esteja, cadastra no banco
+        /// <summary>
+        /// valida se usuário já está cadastrado, caso não esteja, cadastra no banco
+        /// </summary>
+        /// <param name="IMEI">IMEI ou MAC ADDRESS codificado em MD5</param>
+        /// <returns></returns>
+        // POST: api/Clientes/PostLogin?IMEI=432f45b44c432414d2f97df0e5743818
         [ResponseType(typeof(Cliente))]
         public IHttpActionResult PostLogin(string IMEI) //IMEI codificado em MD5
         {
@@ -115,15 +119,20 @@ namespace FlashBuyWebAPI.Controllers
                 else
                     throw new Exception("Usuário Inexistente");
             }
-            catch
+            catch(Exception e)
             {
-                Cliente c = new Cliente();
-                c.IMEI = IMEI;
+                if (e.Message == "Usuário Inexistente")
+                {
+                    Cliente c = new Cliente();
+                    c.IMEI = IMEI;
 
 
-                db.Cliente.Add(c);
-                if (db.SaveChanges() > 0)
-                    return Ok(c);
+                    db.Cliente.Add(c);
+                    if (db.SaveChanges() > 0)
+                        return Ok(c);
+                    else
+                        return NotFound();
+                }
                 else
                     return NotFound();
             }
