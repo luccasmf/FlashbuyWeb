@@ -18,6 +18,8 @@ namespace FlashBuyClassLibrary
 
         public DateTime DataHora { get; set; }
 
+        public EnumCompra Status { get; set; }
+
         public virtual Cliente Cliente { get; set; }
 
         public virtual Oferta Oferta { get; set; }

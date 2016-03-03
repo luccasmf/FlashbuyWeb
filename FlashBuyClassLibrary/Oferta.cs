@@ -34,8 +34,7 @@ namespace FlashBuyClassLibrary
 
         public DateTime DataFim { get; set; }
 
-        [StringLength(50)]
-        public string Status { get; set; }
+        public EnumOferta Status { get; set; }
 
         public int IdCompraPacote { get; set; }
 

@@ -56,6 +56,8 @@
     <Compile Include="Cliente.cs" />
     <Compile Include="Compra.cs" />
     <Compile Include="CompraPacote.cs" />
+    <Compile Include="EnumCompra.cs" />
+    <Compile Include="EnumOferta.cs" />
     <Compile Include="FlashBuyModel.cs" />
     <Compile Include="Oferta.cs" />
     <Compile Include="Pacote.cs" />
