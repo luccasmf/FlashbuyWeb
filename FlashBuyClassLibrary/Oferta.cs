@@ -46,8 +46,7 @@ namespace FlashBuyClassLibrary
 
         public virtual Anunciante Anunciante { get; set; }
 		
-		[StringLength(100)]
-        public string LocalOferta { get; set; }
+        public DbGeography LocalOferta { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Compra> Compra { get; set; }
