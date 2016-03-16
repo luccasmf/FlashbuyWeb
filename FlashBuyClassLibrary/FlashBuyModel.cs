@@ -92,8 +92,8 @@ namespace FlashBuyClassLibrary
                 .IsUnicode(false);
 
             modelBuilder.Entity<Oferta>()
-                .Property(e => e.Status)
-                .IsUnicode(false);
+                .Property(e => e.Status);
+               // .IsUnicode(false);
 
             modelBuilder.Entity<Oferta>()
                 .HasMany(e => e.Compra)

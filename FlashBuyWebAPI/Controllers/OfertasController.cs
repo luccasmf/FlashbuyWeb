@@ -93,9 +93,7 @@ namespace FlashBuyWebAPI.Controllers
             if (oferta == null)
             {
                 return NotFound();
-            }
-
-            oferta.LocalOferta.Latitude = 
+            }                       
 
             db.Oferta.Remove(oferta);
             db.SaveChanges();
