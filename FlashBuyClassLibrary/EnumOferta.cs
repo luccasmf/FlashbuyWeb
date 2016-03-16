@@ -2,7 +2,8 @@
 {
     public enum EnumOferta
     {
-        aprovado = 1,
+        pendente = 1,
+        aprovado,
         reprovado,
         expirado,
         cancelado,
