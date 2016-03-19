@@ -1,0 +1,94 @@
+﻿@model IEnumerable<FlashBuyClassLibrary.Oferta>
+
+@{
+    ViewBag.Title = "PAINEL DE CONTROLE - ANUNCIANTE";
+    Layout = "~/Views/Shared/_LayoutPageAnunciante.cshtml";
+}
+
+<h2>Minhas ofertas</h2>
+
+<p>
+    @Html.ActionLink("Criar Nova", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Administrador.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Anunciante.CPF_CNPJ)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompraPacote.IdCompraPacote)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Produto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Foto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Valor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataInicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataFim)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataHoraAprovacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LocalOferta)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Administrador.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Anunciante.CPF_CNPJ)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CompraPacote.IdCompraPacote)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Produto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Foto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Valor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataInicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataFim)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataHoraAprovacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LocalOferta)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdOferta }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdOferta }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdOferta })
+        </td>
+    </tr>
+}
+
+</table>
