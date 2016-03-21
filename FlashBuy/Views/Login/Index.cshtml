@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>FlashBuy</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/LayoutPageAnunciante/ie10-viewport-bug-workaround.css" rel="stylesheet" />
+    <link href="~/Content/Login/signin.css" rel="stylesheet" />
+
+
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form-signin" }))
+        {
+            <h2 class="form-signin-heading">Conecte-se</h2>
+            <label for="inputEmail" class="sr-only">Endereço de email</label>
+                <input name="Email" type="email" id="inputEmail" class="form-control" placeholder="Endereço de email" required autofocus>
+                <label for="inputPassword" class="sr-only">Senha</label>
+                <input name="Senha" type="password" id="inputPassword" class="form-control" placeholder="Senha" required>
+                @Html.DropDownList("TipoUsuario", new SelectList(ViewBag.listaTiposUsuarios, "Value", "Text"), new { @class = "form-control" })
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="remember-me"> Lembre-me
+                    </label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+        }
+    </div> <!-- /container -->
+    <script src="~/Scripts/LayoutPageAnunciante/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>
