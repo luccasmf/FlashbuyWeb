@@ -103,6 +103,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\LayoutPageAnunciante\dashboard.css" />
     <Content Include="Content\LayoutPageAnunciante\ie10-viewport-bug-workaround.css" />
+    <Content Include="Content\Login\signin.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -132,11 +133,14 @@
     <Content Include="Scripts\LayoutPageAnunciante\holder.min.js" />
     <Content Include="Scripts\LayoutPageAnunciante\ie-emulation-modes-warning.js" />
     <Content Include="Scripts\LayoutPageAnunciante\ie10-viewport-bug-workaround.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AnuncianteController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -149,6 +153,7 @@
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Shared\_LayoutPageAnunciante.cshtml" />
     <Content Include="Views\Anunciante\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
