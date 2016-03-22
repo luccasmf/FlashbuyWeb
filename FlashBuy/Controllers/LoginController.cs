@@ -34,6 +34,7 @@ namespace FlashBuy.Controllers
                     if (anunciante.Senha == Senha)
                     {
                         FormsAuthentication.SetAuthCookie(anunciante.Email, true);
+                        Session.Add("AnuncianteSessao", anunciante);
                         return RedirectToAction("Index", "Anunciante");
                     }
                 }
@@ -43,6 +44,7 @@ namespace FlashBuy.Controllers
                     if (administrador.Senha == Senha)
                     {
                         FormsAuthentication.SetAuthCookie(administrador.Email, true);
+                        Session.Add("AdministradorSessao", administrador);
                         return RedirectToAction("Index", "Administrador");
                     }
                 }

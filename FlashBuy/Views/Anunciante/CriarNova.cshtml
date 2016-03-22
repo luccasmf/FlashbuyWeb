@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "FlashBuy";
+    Layout = "~/Views/Shared/_LayoutPageAnunciante.cshtml";
+}
+
+@section Scripts
+{
+    <script src="~/Scripts/jquery.price_format.2.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('.ValorMonetario').priceFormat({
+                prefix: 'R$ ',
+                centsSeparator: ',',
+                thousandsSeparator: '.'
+            });
+        });
+    </script>
+}
+
+<h2>Nova Oferta</h2>
+@using (Html.BeginForm("SolicInfo", "Protocolo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <input type="text" name="Produto" class="form-control" placeholder="Descrição do produto" /><br />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <label>Valor:</label>
+            <input type="text" name="Valor" value="0" class="form-control ValorMonetario" /><br />
+        </div>
+        <div class="col-md-4">
+            <label>Data/Hora Início</label>
+            <input type="datetime-local" name="DataInicio" class="form-control" placeholder="DataInicio" /><br />
+        </div>
+        <div class="col-md-4">
+            <label>Data/Hora Fim</label>
+            <input type="datetime-local" name="DataFim" class="form-control" placeholder="DataFim" /><br />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label>Selecione seu pacote:</label>
+            @Html.DropDownList("IdCompraPacote", new SelectList(ViewBag.listaPacotesAnunciante, "Value", "Text"), new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <input type="file" name="Foto" class="form-control" placeholder="Foto" onchange="readImgUrl(this);" /><br />
+            <img id="fotoPreview" src="#" alt="Your image" />
+        </div>
+    </div>
+}
+
+@*<script>
+        function readImgUrl(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#fotoPreview')
+                        .attr('src', e.target.result)
+                        .width(150)
+                        .height(200);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>*@
+
