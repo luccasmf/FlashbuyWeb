@@ -107,9 +107,9 @@ namespace FlashBuyWebAPI.Controllers
         /// </summary>
         /// <param name="IMEI">IMEI ou MAC ADDRESS codificado em MD5</param>
         /// <returns></returns>
-        // POST: api/Clientes/PostLogin?IMEI=432f45b44c432414d2f97df0e5743818
+        // POST: api/Clientes/PostLogin?IMEI=432f45b44c432414d2f97df0e5743818&nome=xxxxx
         [ResponseType(typeof(Cliente))]
-        public IHttpActionResult PostLogin(string IMEI) //IMEI codificado em MD5
+        public IHttpActionResult PostLogin(string IMEI,string nome) //IMEI codificado em MD5
         {
             try
             {
@@ -125,7 +125,7 @@ namespace FlashBuyWebAPI.Controllers
                 {
                     Cliente c = new Cliente();
                     c.IMEI = IMEI;
-
+                    c.Nome = nome;
 
                     db.Cliente.Add(c);
                     if (db.SaveChanges() > 0)

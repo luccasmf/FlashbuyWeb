@@ -155,6 +155,7 @@
     <Content Include="Views\Shared\_LayoutPageAnunciante.cshtml" />
     <Content Include="Views\Anunciante\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Anunciante\Venda.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
