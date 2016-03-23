@@ -35,7 +35,7 @@ namespace FlashBuyWebAPI.Controllers
             return Ok(compra);
         }
 
-        // GET: api/Compras/?idCliente=1234
+        // GET: api/Compras/GetComprasCliente?idCliente=1234
         [ResponseType(typeof(Compra[]))]
         public IHttpActionResult GetComprasCliente(int idCliente)
         {
