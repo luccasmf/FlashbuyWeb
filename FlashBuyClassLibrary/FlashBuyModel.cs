@@ -10,7 +10,10 @@ namespace FlashBuyClassLibrary
         public FlashBuyModel()
             : base("name=FlashBuyModel")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
+
+        
 
         public virtual DbSet<Administrador> Administrador { get; set; }
         public virtual DbSet<Anunciante> Anunciante { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace FlashBuyClassLibrary
 {
-    public enum EnumCompra
+    public enum EnumCompra : byte
     {
         Visualizado=1,
         Checkado,

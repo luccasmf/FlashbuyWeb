@@ -25,7 +25,6 @@ namespace FlashBuyClassLibrary
         public string Produto { get; set; }
 
         [Column(TypeName = "image")]
-        [Required]
         public byte[] Foto { get; set; }
 
         public double Valor { get; set; }

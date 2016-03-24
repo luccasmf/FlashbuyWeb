@@ -36,16 +36,25 @@ namespace FlashBuyWebAPI.Controllers
         }
 
         // GET: api/Compras/GetComprasCliente?idCliente=1234
-        [ResponseType(typeof(Compra[]))]
+       // [ResponseType(typeof(Compra[]))]
         public IHttpActionResult GetComprasCliente(int idCliente)
         {
-            var compras = db.Compra.Select(p => p.IdCliente == idCliente);
+            OfertasController oc = new OfertasController();
+             List<Compra> comprasDoCliente = db.Compra.Where(p => p.IdCliente == idCliente).ToList();
+            List<Oferta> ofertas = new List<Oferta>();
+            foreach(Compra c in comprasDoCliente)
+            {
+                Oferta o = new Oferta();
+                o = db.Oferta.FirstOrDefault(p => p.IdOferta == c.IdOferta);
+                o.Compra = null;
+                ofertas.Add(o);
+            }
 
-            if(compras == null)
+            if(ofertas.Count() == 0)
             {
                 return NotFound();
             }
-            return Ok(compras);
+            return Ok(ofertas);
         }
 
         // PUT: api/Compras/5

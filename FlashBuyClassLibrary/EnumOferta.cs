@@ -1,6 +1,6 @@
 ﻿namespace FlashBuyClassLibrary
 {
-    public enum EnumOferta
+    public enum EnumOferta : byte
     {
         pendente = 1,
         aprovado,
