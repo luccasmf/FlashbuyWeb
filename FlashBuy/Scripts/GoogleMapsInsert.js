@@ -11,8 +11,7 @@ function initialize() {    //função de iniciar o mapa
         disableDefaultUI: true
 
     };
-    map = new google.maps.Map(document.getElementById('map-canvas'),
-                mapOptions);
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
     //função de geolocation
     if (navigator.geolocation) {
@@ -38,7 +37,6 @@ function initialize() {    //função de iniciar o mapa
 
     google.maps.event.addListener(map, 'click', function (event) {
         addMarker(event.latLng);
-        enviarParaASP();
     });
 
 
@@ -59,8 +57,9 @@ function addMarker(location) {
     });
 
     markers.push(marker);
-    google.maps.event.addListener(marker, 'dragend', function () { enviarParaASP(); });
-    // enviarParaASP();
+    google.maps.event.addListener(marker, 'dragend', function () { alert(this.location); });
+    //google.maps.event.addListener(marker, 'dragend', function () { enviarParaASP(); });
+    enviarParaASP();
 
 }
 
@@ -94,47 +93,48 @@ function handleNoGeolocation(errorFlag) {
 // ENVIAR VALORES PARA UM WEBMETHOD
 function enviarParaASP() {
     coordenadaASalvar = { latitude: marker.position.k, longitude: marker.position.A };
-
     var endereco = codeLatLng(coordenadaASalvar);
     endereco = endereco == undefined ? "indefinido" : endereco;
-    
+
 }
 
 function codeLatLng(valor) {
-
-    
     var latlng = new google.maps.LatLng(valor.latitude, valor.longitude);
-
     var geocoder = new google.maps.Geocoder();
     geocoder.geocode({ 'latLng': latlng }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             if (results[0].address_components) {
+                $("#address_components").val(results[0].address_components);
+                $("#latitude").val(valor.latitude);
+
+
+
                 //var endereco = results[0].address_components[1].short_name + ',' + results[0].address_components[0].short_name;
                 //var cidade = results[0].address_components[3].short_name;
                 //var estado = results[0].address_components[5].short_name;
                 //var bairro = results[0].address_components[2].short_name;
                 ////var parametros = { coord: valor, endereco: retorno };
 
-                jQuery.ajax({
-                    url: 'InserirBuracos.aspx/SalvaCoordenadas',  //eh soh alterar esse endereço do metodo pra onde vao as coordenadas
-                    type: "POST",
-                    //data: parametros,
-                    data: JSON.stringify({ 'vet': results[0].address_components, 'lt': valor.latitude, 'lg': valor.longitude }),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                 
-                   // success: function (msg) { alert("Buraco inserido  "); },
-                    //failure: function (msg) { alert("Sorry!!! "); }
-                });
+                //jQuery.ajax({
+                //    url: 'InserirBuracos.aspx/SalvaCoordenadas',  //eh soh alterar esse endereço do metodo pra onde vao as coordenadas
+                //    type: "POST",
+                //    //data: parametros,
+                //    data: JSON.stringify({ 'vet': results[0].address_components, 'lt': valor.latitude, 'lg': valor.longitude }),
+                //    contentType: "application/json; charset=utf-8",
+                //    dataType: "json",
+
+                //    // success: function (msg) { alert("Buraco inserido  "); },
+                //    //failure: function (msg) { alert("Sorry!!! "); }
+                //});
 
 
                 //return retorno;
 
             }
         } else {
-          alert("Geocoder failed due to: " + status);
+            alert("Geocoder failed due to: " + status);
         }
 
     });
-   // return def.promise(); //testar
+    // return def.promise(); //testar
 }
