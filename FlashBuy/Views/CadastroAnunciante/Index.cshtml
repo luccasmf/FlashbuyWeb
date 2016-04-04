@@ -1,0 +1,250 @@
+﻿@model FlashBuyClassLibrary.Anunciante
+@{
+    ViewBag.Title = "Cadastro de Anunciante";
+    Layout = "~/Views/Shared/_LayoutPageAnunciante.cshtml";
+}
+
+<div style="display:@(ViewBag.Status == "Success" ? "block" : "none")" class="alert alert-success">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    @ViewBag.Message
+</div>
+<div style="display:@(ViewBag.Status == "Error" ? "block" : "none")" class="alert alert-danger">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    @ViewBag.Message
+</div>
+<h2>Cadastro de Anunciante</h2>
+
+<div class="panel">
+    <div class="panel-body">
+        @using(Html.BeginForm("Incluir", "CadastroAnunciante", FormMethod.Post, new { id="CadastroAnuncianteForm" }))
+        {
+        <div class="form-group">
+            <label>CPF/CNPJ</label>
+            @Html.TextBoxFor(x => x.CPF_CNPJ, new { @class="form-control", @maxlenght = "50" })
+            <span id="documentoVal" style="display:none">Documento inválido.</span>
+        </div>
+        <div class="form-group">
+            <label>Razão Social *</label>
+            @Html.TextBoxFor(x => x.RazaoSocial, new { @class="form-control", @maxlenght = "50", @required = "required" })
+        </div>
+        <div class="form-group">
+            <label>Nome Fantasia</label>
+            @Html.TextBoxFor(x => x.NomeFantasia, new { @class="form-control", @maxlenght = "50" })
+        </div>
+        <div class="form-group">
+            <label>Telefone *</label>
+            @Html.TextBoxFor(x => x.Telefone, new { @class = "form-control", @maxlenght = "50", @required = "required" })
+        </div>
+        <div class="form-group">
+            <label>E-mail *</label>
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @maxlenght = "50", @type = "email", @required = "required" })
+        </div>
+        <div class="form-group">
+            <label>Senha *</label>
+            @Html.TextBoxFor(x => x.Senha, new { @class = "form-control", @maxlenght = "20", @type = "password", @required = "required" })
+        </div>
+        @*<div class="form-group">
+            <label>Confirmação de senha *</label>
+            @Html.TextBox("ConfirmSenha", string.Empty, new { @class = "form-control", @maxlenght = "20", @type = "password", @required = "required" })
+        </div>*@
+        <div class="form-group text-center">
+            <button type="submit" class="btn-primary">Salvar</button>
+        </div>
+        }
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.9.1.min.js"></script>
+<script src="~/Scripts/jquery.maskedinput.min.js"></script>
+<script>
+    var $j = jQuery.noConflict();
+    $j(document).ready(function () {
+        $j("#CPF_CNPJ").focusout(function () {
+            var element = $j("#CPF_CNPJ");
+            element.unmask();
+            // Pega apenas os numeros sem a formatação
+            var str = element.val().replace(/[^0-9]/g, '')
+            if (str.length != 0) {
+                // Caso tenha caracteres será formatado como CPF 
+                if (str.length == 11) {
+                    element.mask("999.999.999-99");
+                    valid = validarCpf(str);
+                    if (valid) {
+                        $j("#documentoVal").hide();
+                    }
+                    else {
+                        $j("#documentoVal").show();
+                    }
+                }
+                    // Caso passe de 14 caracteres será formatado como CNPJ 
+                else if (str.length >= 14) {
+                    element.mask("99.999.999/9999-99");
+                    valid = validarCNPJ(str);
+                    if (valid) {
+                        $j("#documentoVal").hide();
+                    }
+                    else {
+                        $j("#documentoVal").show();
+                    }
+                }
+            }
+        });
+
+        $j(document).on("change", "#CPF_CNPJ", function () {
+            var element = $j("#CPF_CNPJ");
+            element.unmask();
+        });
+
+        $j(document).on('submit', '#CadastroAnuncianteForm', function (event) {
+            var element;
+            var valid = true;
+            element = $j("#CPF_CNPJ");
+            element.unmask();
+            // Pega apenas os numeros sem a formatação
+            var str = element.val().replace(/[^0-9]/g, '')
+            if (str.length != 0) {
+                // Caso tenha caracteres será formatado como CPF 
+                if (str.length == 11) {
+                    element.mask("999.999.999-99");
+                    valid = validarCpf(str);
+                    if (valid) {
+                        $j("#documentoVal").hide();
+                    }
+                    else {
+                        $j("#documentoVal").show();
+                    }
+                }
+                    // Caso passe de 14 caracteres será formatado como CNPJ 
+                else if (str.length >= 14) {
+                    element.mask("99.999.999/9999-99");
+                    valid = validarCNPJ(str);
+                    if (valid) {
+                        $j("#documentoVal").hide();
+                    }
+                    else {
+                        $j("#documentoVal").show();
+                    }
+                }
+            }
+
+            if (!valid) {
+                event.preventDefault();
+                return false;
+            }
+            else {
+                var fmr = $j("#CadastroAnuncianteForm");
+                $j.ajax({
+                    type: frm.attr('method'),
+                    url: frm.attr('action'),
+                    dataType: 'json',
+                    data: fmr.serialize(),
+                    success: function (data) {
+                        debugger;
+                    },
+                    error: function (data) {
+                        debugger;
+                    },
+                    complete: function (data) {
+                    }
+                });
+                event.preventDefault();
+            }
+        });
+    });
+
+    function validarCpf(strCPF) {
+        var Soma;
+        var Resto;
+        Soma = 0;
+        if (strCPF == "00000000000" ||
+            strCPF == "11111111111" ||
+            strCPF == "22222222222" ||
+            strCPF == "33333333333" ||
+            strCPF == "44444444444" ||
+            strCPF == "55555555555" ||
+            strCPF == "66666666666" ||
+            strCPF == "77777777777" ||
+            strCPF == "88888888888" ||
+            strCPF == "99999999999") {
+            return false;
+        }
+
+        for (i = 1; i <= 9; i++) {
+            Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+        }
+
+        Resto = (Soma * 10) % 11;
+        if ((Resto == 10) || (Resto == 11)) {
+            Resto = 0;
+        }
+
+        if (Resto != parseInt(strCPF.substring(9, 10))) {
+            return false;
+        }
+        Soma = 0;
+        for (i = 1; i <= 10; i++) {
+            Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+        }
+
+        Resto = (Soma * 10) % 11;
+        if ((Resto == 10) || (Resto == 11)) {
+            Resto = 0;
+        }
+
+        if (Resto != parseInt(strCPF.substring(10, 11))) {
+            return false;
+        }
+        return true;
+    }
+
+    function validarCNPJ(cnpj) {
+        cnpj = cnpj.replace(/[^\d]+/g, '');
+
+        if (cnpj.length != 14)
+            return false;
+
+        // Elimina CNPJs invalidos conhecidos
+        if (cnpj == "00000000000000" ||
+            cnpj == "11111111111111" ||
+            cnpj == "22222222222222" ||
+            cnpj == "33333333333333" ||
+            cnpj == "44444444444444" ||
+            cnpj == "55555555555555" ||
+            cnpj == "66666666666666" ||
+            cnpj == "77777777777777" ||
+            cnpj == "88888888888888" ||
+            cnpj == "99999999999999")
+            return false;
+
+        // Valida DVs
+        tamanho = cnpj.length - 2
+        numeros = cnpj.substring(0, tamanho);
+        digitos = cnpj.substring(tamanho);
+        soma = 0;
+        pos = tamanho - 7;
+        for (i = tamanho; i >= 1; i--) {
+            soma += numeros.charAt(tamanho - i) * pos--;
+            if (pos < 2)
+                pos = 9;
+        }
+        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+        if (resultado != digitos.charAt(0))
+            return false;
+
+        tamanho = tamanho + 1;
+        numeros = cnpj.substring(0, tamanho);
+        soma = 0;
+        pos = tamanho - 7;
+        for (i = tamanho; i >= 1; i--) {
+            soma += numeros.charAt(tamanho - i) * pos--;
+            if (pos < 2)
+                pos = 9;
+        }
+        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+        if (resultado != digitos.charAt(1))
+            return false;
+
+        return true;
+
+    }
+</script>

@@ -16,17 +16,50 @@ namespace FlashBuyWebAPI.Controllers
     {
         private FlashBuyModel db = new FlashBuyModel();
 
-        // GET: api/Ofertas
-        public IQueryable<Oferta> GetOferta()
+        // GET: api/Ofertas/GetOferta
+        public IHttpActionResult GetOferta()
         {
-            return db.Oferta;
+            List<Oferta> oferta = db.Oferta.Where(p => p.Status == EnumOferta.aprovado).ToList();
+
+            foreach (Oferta of in oferta)
+            {
+                of.Compra = null;
+                of.Administrador = null;
+                of.CompraPacote = null;
+                of.IdAprovador = null;
+                of.DataHoraAprovacao = null;
+
+                Anunciante a = db.Anunciante.FirstOrDefault(p => p.IdAnunciante == of.IdAnunciante);
+                of.Anunciante.IdAnunciante = a.IdAnunciante;
+                of.Anunciante = new Anunciante();
+                of.Anunciante.NomeFantasia = a.NomeFantasia;
+                of.Anunciante.Email = a.Email;
+                of.Anunciante.Telefone = a.Telefone;
+            }
+
+            if (oferta.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(oferta);
         }
 
-        // GET: api/Ofertas/5
-        [ResponseType(typeof(Oferta))]
+        // GET: api/Ofertas/GetOferta?id=1
         public IHttpActionResult GetOferta(int id)
         {
             Oferta oferta = db.Oferta.Find(id);
+            oferta.Administrador = null;
+            oferta.Compra = null;
+            oferta.CompraPacote = null;
+            oferta.IdAprovador = null;
+            oferta.DataHoraAprovacao = null;
+            Anunciante a = db.Anunciante.FirstOrDefault(p => p.IdAnunciante == oferta.IdAnunciante);
+            oferta.Anunciante.IdAnunciante = a.IdAnunciante;
+            oferta.Anunciante = new Anunciante();
+            oferta.Anunciante.NomeFantasia = a.NomeFantasia;
+            oferta.Anunciante.Email = a.Email;
+            oferta.Anunciante.Telefone = a.Telefone;
+
             if (oferta == null)
             {
                 return NotFound();
@@ -93,7 +126,7 @@ namespace FlashBuyWebAPI.Controllers
             if (oferta == null)
             {
                 return NotFound();
-            }                       
+            }
 
             db.Oferta.Remove(oferta);
             db.SaveChanges();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace FlashBuyWebAPI
 {
@@ -19,7 +20,10 @@ namespace FlashBuyWebAPI
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional}
             );
-            
+
+            var corsAttr = new EnableCorsAttribute("http://189.16.45.2", "*", "*");
+            config.EnableCors(corsAttr);
+
         }
     }
 }

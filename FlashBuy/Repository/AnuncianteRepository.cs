@@ -1,24 +1,32 @@
-﻿using System;
+﻿using FlashBuyClassLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using FlashBuyClassLibrary;
 
 namespace FlashBuy.Repository
 {
     public class AnuncianteRepository
     {
-        internal List<CompraPacote> GetPacotesAnunciante(int idAnunciante)
+        internal bool GetAnuncianteByEmail(string email)
+        {
+            FlashBuyModel context = new FlashBuyModel();
+            return context.Anunciante.Any(a => a.Email == email);
+        }
+
+        internal void Salvar(Anunciante model)
         {
             try
             {
                 FlashBuyModel context = new FlashBuyModel();
-                return context.CompraPacote.Where(c => c.IdAnunciante == idAnunciante).ToList();
+                context.Anunciante.Add(model);
+                context.SaveChanges();
             }
             catch (Exception)
             {
-                return new List<CompraPacote>();
+                throw;
             }
+            
         }
     }
 }
