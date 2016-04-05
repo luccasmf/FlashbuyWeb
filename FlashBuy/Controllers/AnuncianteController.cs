@@ -33,7 +33,7 @@ namespace FlashBuy.Controllers
         }
 
         [HttpPost]
-        public ActionResult CriarNova(Oferta NovaOferta)
+        public ActionResult CriarNova(Oferta NovaOferta, HttpPostedFileBase File)
         {
             return View();
         }
