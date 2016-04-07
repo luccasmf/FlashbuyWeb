@@ -137,7 +137,7 @@ namespace FlashBuyWebAPI.Controllers
             return db.Compra.Count(e => e.IdCompra == id) > 0;
         }
 
-        // POST: api/PotGeraCompra/?idOferta=1234&idCliente=1234
+        // POST: api/PostGeraCompra/?idOferta=1234&idCliente=1234
         public int PostGeraCompra(int idOferta, int idCliente)
         {
             Compra c = db.Compra.FirstOrDefault(p => p.IdCliente == idCliente && p.IdOferta == idOferta);
