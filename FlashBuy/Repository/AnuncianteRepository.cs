@@ -18,6 +18,7 @@ namespace FlashBuy.Repository
         {
             try
             {
+                model.Senha = Util.Helper.GerarHashMd5(model.Senha);
                 FlashBuyModel context = new FlashBuyModel();
                 context.Anunciante.Add(model);
                 context.SaveChanges();

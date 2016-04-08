@@ -26,9 +26,7 @@ namespace FlashBuy.Controllers
                     ViewBag.Message = "E-mail já cadastrado na base de dados.";
                     return View("Index");
                 }
-                //TODO: Criptografar senha
-                //TODO: Verificar necessidade de confirmação de senha/e-mail
-                //TODO: Máscaras de telefone/CPF/CNPJ (validação de cpf e cnpj)
+
                 anuncianteRep.Salvar(model);
 
                 ViewBag.Status = "Success";

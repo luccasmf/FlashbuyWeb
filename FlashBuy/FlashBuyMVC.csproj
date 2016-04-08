@@ -152,6 +152,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AnuncianteRepository.cs" />
     <Compile Include="Repository\LoginRepository.cs" />
+    <Compile Include="Util\Helper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

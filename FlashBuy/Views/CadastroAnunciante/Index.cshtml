@@ -3,57 +3,60 @@
     ViewBag.Title = "Cadastro de Anunciante";
     Layout = "~/Views/Shared/_LayoutPageAnunciante.cshtml";
 }
-
-<div style="display:@(ViewBag.Status == "Success" ? "block" : "none")" class="alert alert-success">
+<div style="display:@(ViewBag.Status != null && ViewBag.Status == "Success" ? "block" : "none")" class="alert alert-success">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     @ViewBag.Message
 </div>
-<div style="display:@(ViewBag.Status == "Error" ? "block" : "none")" class="alert alert-danger">
+<div style="display:@(ViewBag.Status != null && ViewBag.Status == "Error" ? "block" : "none")" class="alert alert-danger">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     @ViewBag.Message
 </div>
 <h2>Cadastro de Anunciante</h2>
-
 <div class="panel">
     <div class="panel-body">
-        @using(Html.BeginForm("Incluir", "CadastroAnunciante", FormMethod.Post, new { id="CadastroAnuncianteForm" }))
+        @using (Html.BeginForm("Incluir", "CadastroAnunciante", FormMethod.Post, new { id = "CadastroAnuncianteForm" }))
         {
-        <div class="form-group">
-            <label>CPF/CNPJ</label>
-            @Html.TextBoxFor(x => x.CPF_CNPJ, new { @class="form-control", @maxlenght = "50" })
-            <span id="documentoVal" style="display:none">Documento inválido.</span>
-        </div>
-        <div class="form-group">
-            <label>Razão Social *</label>
-            @Html.TextBoxFor(x => x.RazaoSocial, new { @class="form-control", @maxlenght = "50", @required = "required" })
-        </div>
-        <div class="form-group">
-            <label>Nome Fantasia</label>
-            @Html.TextBoxFor(x => x.NomeFantasia, new { @class="form-control", @maxlenght = "50" })
-        </div>
-        <div class="form-group">
-            <label>Telefone *</label>
-            @Html.TextBoxFor(x => x.Telefone, new { @class = "form-control", @maxlenght = "50", @required = "required" })
-        </div>
-        <div class="form-group">
-            <label>E-mail *</label>
-            @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @maxlenght = "50", @type = "email", @required = "required" })
-        </div>
-        <div class="form-group">
-            <label>Senha *</label>
-            @Html.TextBoxFor(x => x.Senha, new { @class = "form-control", @maxlenght = "20", @type = "password", @required = "required" })
-        </div>
-        @*<div class="form-group">
-            <label>Confirmação de senha *</label>
-            @Html.TextBox("ConfirmSenha", string.Empty, new { @class = "form-control", @maxlenght = "20", @type = "password", @required = "required" })
-        </div>*@
-        <div class="form-group text-center">
-            <button type="submit" class="btn-primary">Salvar</button>
-        </div>
+            <div class="form-group">
+                <label>CPF/CNPJ</label>
+                @Html.TextBoxFor(x => x.CPF_CNPJ, new { @class = "form-control", @maxlenght = "50" })
+                <span id="documentoVal" style="display:none; color:red">Documento inválido.</span>
+            </div>
+            <div class="form-group">
+                <label>Razão Social *</label>
+                @Html.TextBoxFor(x => x.RazaoSocial, new { @class = "form-control", @maxlenght = "50", @required = "required" })
+            </div>
+            <div class="form-group">
+                <label>Nome Fantasia</label>
+                @Html.TextBoxFor(x => x.NomeFantasia, new { @class = "form-control", @maxlenght = "50" })
+            </div>
+            <div class="form-group">
+                <label>Telefone *</label>
+                @Html.TextBoxFor(x => x.Telefone, new { @class = "form-control", @maxlenght = "50", @required = "required" })
+            </div>
+            <div class="form-group">
+                <label>E-mail *</label>
+                @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @maxlenght = "50", @type = "email", @required = "required" })
+            </div>
+            <div class="form-group">
+                <label>Confirmação de E-mail *</label>
+                @Html.TextBox("ConfirmEmail", string.Empty, new { @class = "form-control", @maxlenght = "50", @type = "email", @required = "required" })
+                <span id="emailVal" style="display:none; color:red">E-mails não conferem.</span>
+            </div>
+            <div class="form-group">
+                <label>Senha *</label>
+                @Html.TextBoxFor(x => x.Senha, new { @class = "form-control", @maxlenght = "20", @type = "password", @required = "required" })
+            </div>
+            <div class="form-group">
+                <label>Confirmação de senha *</label>
+                @Html.TextBox("ConfirmSenha", string.Empty, new { @class = "form-control", @maxlenght = "20", @type = "password", @required = "required" })
+                <span id="senhaVal" style="display:none; color:red">Senhas não conferem.</span>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
         }
     </div>
 </div>
-
 <script src="~/Scripts/jquery-1.9.1.min.js"></script>
 <script src="~/Scripts/jquery.maskedinput.min.js"></script>
 <script>
@@ -65,7 +68,7 @@
             // Pega apenas os numeros sem a formatação
             var str = element.val().replace(/[^0-9]/g, '')
             if (str.length != 0) {
-                // Caso tenha caracteres será formatado como CPF 
+                // Caso tenha caracteres será formatado como CPF
                 if (str.length == 11) {
                     element.mask("999.999.999-99");
                     valid = validarCpf(str);
@@ -76,7 +79,7 @@
                         $j("#documentoVal").show();
                     }
                 }
-                    // Caso passe de 14 caracteres será formatado como CNPJ 
+                    // Caso passe de 14 caracteres será formatado como CNPJ
                 else if (str.length >= 14) {
                     element.mask("99.999.999/9999-99");
                     valid = validarCNPJ(str);
@@ -90,10 +93,40 @@
             }
         });
 
+        $j("#ConfirmEmail").focusout(function () {
+            if ($j("#ConfirmEmail").val() != $j("#Email").val()) {
+                $j("#emailVal").show();
+            }
+            else {
+                $j("#emailVal").hide();
+            }
+        });
+
+        $j("#ConfirmSenha").focusout(function () {
+            if ($j("#ConfirmSenha").val() != $j("#Senha").val()) {
+                $j("#senhaVal").show();
+            }
+            else {
+                $j("#senhaVal").hide();
+            }
+        });
+
         $j(document).on("change", "#CPF_CNPJ", function () {
             var element = $j("#CPF_CNPJ");
             element.unmask();
         });
+
+        $j('#Telefone').focusout(function () {
+            var phone, element;
+            element = $j(this);
+            element.unmask();
+            phone = element.val().replace(/\D/g, '');
+            if (phone.length > 10) {
+                element.mask("(99) 99999-999?9");
+            } else {
+                element.mask("(99) 9999-9999?9");
+            }
+        }).trigger('focusout');
 
         $j(document).on('submit', '#CadastroAnuncianteForm', function (event) {
             var element;
@@ -103,7 +136,7 @@
             // Pega apenas os numeros sem a formatação
             var str = element.val().replace(/[^0-9]/g, '')
             if (str.length != 0) {
-                // Caso tenha caracteres será formatado como CPF 
+                // Caso tenha caracteres será formatado como CPF
                 if (str.length == 11) {
                     element.mask("999.999.999-99");
                     valid = validarCpf(str);
@@ -111,10 +144,11 @@
                         $j("#documentoVal").hide();
                     }
                     else {
+                        valid = false;
                         $j("#documentoVal").show();
                     }
                 }
-                    // Caso passe de 14 caracteres será formatado como CNPJ 
+                // Caso passe de 14 caracteres será formatado como CNPJ
                 else if (str.length >= 14) {
                     element.mask("99.999.999/9999-99");
                     valid = validarCNPJ(str);
@@ -122,10 +156,29 @@
                         $j("#documentoVal").hide();
                     }
                     else {
+                        valid = false;
                         $j("#documentoVal").show();
                     }
                 }
             }
+
+            if ($j("#ConfirmEmail").val() != $j("#Email").val()) {
+                valid = false;
+                $j("#emailVal").show();
+            }
+            else {
+                $j("#emailVal").hide();
+            }
+
+            $j("#ConfirmSenha").focusout(function () {
+                if ($j("#ConfirmSenha").val() != $j("#Senha").val()) {
+                    valid = false;
+                    $j("#senhaVal").show();
+                }
+                else {
+                    $j("#senhaVal").hide();
+                }
+            });
 
             if (!valid) {
                 event.preventDefault();

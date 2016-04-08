@@ -31,7 +31,7 @@ namespace FlashBuy.Controllers
                 if (TipoUsuario == "Anunciante")
                 {
                     Anunciante anunciante = repositorio.GetAnunciante(Email);
-                    if (anunciante.Senha == Senha)
+                    if (anunciante.Senha == Util.Helper.GerarHashMd5(Senha))
                     {
                         FormsAuthentication.SetAuthCookie(anunciante.Email, true);
                         Session.Add("AnuncianteSessao", anunciante);

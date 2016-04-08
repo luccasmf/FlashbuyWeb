@@ -38,7 +38,7 @@ namespace FlashBuyClassLibrary
         public string Email { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [StringLength(32)]
         public string Senha { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
