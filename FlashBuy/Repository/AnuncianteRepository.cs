@@ -38,12 +38,22 @@ namespace FlashBuy.Repository
 
         public bool CriaNovaOferta(Oferta of)
         {
+            CompraPacote cc = context.CompraPacote.Where(cp => cp.IdCompraPacote == of.IdCompraPacote).FirstOrDefault();
+
+            cc.QtdAnuncioDisponivel--;
+
+
            context.Oferta.Add(of);
             if(context.SaveChanges()>0)
             {
                 return true;
             }
             return false;
+        }
+
+        public List<Oferta> GetOfertasAtivas(int idAnunciante)
+        {
+            return context.Oferta.Where(of => of.IdAnunciante == idAnunciante && (of.Status == EnumOferta.aprovado || of.Status == EnumOferta.pendente)).OrderByDescending(of => of.Status).ToList();
         }
     }
 }

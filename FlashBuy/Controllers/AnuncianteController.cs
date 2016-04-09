@@ -16,7 +16,9 @@ namespace FlashBuy.Controllers
         // GET: Anunciante
         public ActionResult Index()
         {
-            var listaOfertas = new HashSet<Oferta>();
+            var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
+            List<Oferta> ofertas = repositorio.GetOfertasAtivas(AnuncianteSessao.IdAnunciante);
+            var listaOfertas = new HashSet<Oferta>(ofertas);
             return View(listaOfertas);
         }
 
@@ -48,6 +50,8 @@ namespace FlashBuy.Controllers
             NovaOferta.Foto = converterFileToArray(File);
             NovaOferta.IdAnunciante = AnuncianteSessao.IdAnunciante;
             NovaOferta.Status = EnumOferta.pendente;
+
+
 
             if(repositorio.CriaNovaOferta(NovaOferta))
                 return RedirectToAction("Index");
