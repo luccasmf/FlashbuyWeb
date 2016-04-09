@@ -8,9 +8,10 @@ namespace FlashBuy.Repository
 {
     public class AnuncianteRepository
     {
+        FlashBuyModel context = new FlashBuyModel();
         internal bool GetAnuncianteByEmail(string email)
         {
-            FlashBuyModel context = new FlashBuyModel();
+            
             return context.Anunciante.Any(a => a.Email == email);
         }
 
@@ -28,6 +29,11 @@ namespace FlashBuy.Repository
                 throw;
             }
             
+        }
+
+        public List<CompraPacote> GetPacotesAnunciante(int idAnunciante)
+        {
+            return context.CompraPacote.Where(p => p.IdAnunciante == idAnunciante && p.DataValidade >= DateTime.Now).ToList();
         }
     }
 }

@@ -22,11 +22,16 @@ namespace FlashBuy.Controllers
         {
             AnuncianteRepository repositorio = new AnuncianteRepository();
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
-            List<CompraPacote> listaPacotesAnunciante = new List<CompraPacote>();//repositorio.GetPacotesAnunciante(AnuncianteSessao.IdAnunciante);
+            List<CompraPacote> listaPacotesAnunciante = new List<CompraPacote>();
+            listaPacotesAnunciante.AddRange(repositorio.GetPacotesAnunciante(AnuncianteSessao.IdAnunciante));
             var SelectListItem = new List<SelectListItem>();
             foreach (var item in listaPacotesAnunciante)
             {
-                SelectListItem.Add(new SelectListItem() { Text = "Validade: " + item.DataValidade + " - Anuncios restantes: " + item.Pacote.QtdAnuncio, Value = item.IdCompraPacote.ToString() });
+                SelectListItem slc = new SelectListItem();
+                slc.Text = "Validade: " + item.DataValidade + " - Anuncios restantes: " + item.QtdAnuncioDisponivel;
+                slc.Value = item.IdCompraPacote.ToString();
+
+                SelectListItem.Add(slc);
             }
             ViewBag.listaPacotesAnunciante = SelectListItem;
             return View();
