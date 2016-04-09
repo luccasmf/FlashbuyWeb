@@ -35,5 +35,15 @@ namespace FlashBuy.Repository
         {
             return context.CompraPacote.Where(p => p.IdAnunciante == idAnunciante && p.DataValidade >= DateTime.Now).ToList();
         }
+
+        public bool CriaNovaOferta(Oferta of)
+        {
+           context.Oferta.Add(of);
+            if(context.SaveChanges()>0)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

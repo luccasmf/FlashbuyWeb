@@ -5,11 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using FlashBuyClassLibrary;
 using FlashBuy.Repository;
+using System.IO;
+using System.Drawing;
 
 namespace FlashBuy.Controllers
 {
     public class AnuncianteController : Controller
     {
+        AnuncianteRepository repositorio = new AnuncianteRepository();
         // GET: Anunciante
         public ActionResult Index()
         {
@@ -20,7 +23,7 @@ namespace FlashBuy.Controllers
         [HttpGet]
         public ActionResult CriarNova()
         {
-            AnuncianteRepository repositorio = new AnuncianteRepository();
+            
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
             List<CompraPacote> listaPacotesAnunciante = new List<CompraPacote>();
             listaPacotesAnunciante.AddRange(repositorio.GetPacotesAnunciante(AnuncianteSessao.IdAnunciante));
@@ -40,7 +43,27 @@ namespace FlashBuy.Controllers
         [HttpPost]
         public ActionResult CriarNova(Oferta NovaOferta, HttpPostedFileBase File)
         {
-            return View();
+            var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
+
+            NovaOferta.Foto = converterFileToArray(File);
+            NovaOferta.IdAnunciante = AnuncianteSessao.IdAnunciante;
+            NovaOferta.Status = EnumOferta.pendente;
+
+            if(repositorio.CriaNovaOferta(NovaOferta))
+                return RedirectToAction("Index");
+            else
+                return View();
         }
+
+        public static byte[] converterFileToArray(HttpPostedFileBase x)
+        {
+            MemoryStream tg = new MemoryStream();
+            x.InputStream.CopyTo(tg);
+            byte[] data = tg.ToArray();
+
+            return data;
+        }
+
+        
     }
 }
