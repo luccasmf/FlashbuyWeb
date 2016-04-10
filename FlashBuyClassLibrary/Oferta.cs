@@ -51,5 +51,11 @@ namespace FlashBuyClassLibrary
         public virtual ICollection<Compra> Compra { get; set; }
 
         public virtual CompraPacote CompraPacote { get; set; }
+
+        [StringLength(50)]
+        public string NomeArquivo { get; set; }
+
+        [NotMapped]
+        public string imgMime { get; set; }
     }
 }

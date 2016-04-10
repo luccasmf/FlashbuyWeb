@@ -35,6 +35,9 @@ namespace FlashBuyWebAPI.Controllers
                 of.Anunciante.NomeFantasia = a.NomeFantasia;
                 of.Anunciante.Email = a.Email;
                 of.Anunciante.Telefone = a.Telefone;
+                of.imgMime = imgToString64(of);
+
+                of.Foto = null;
             }
 
             if (oferta.Count == 0)
@@ -59,6 +62,9 @@ namespace FlashBuyWebAPI.Controllers
             oferta.Anunciante.NomeFantasia = a.NomeFantasia;
             oferta.Anunciante.Email = a.Email;
             oferta.Anunciante.Telefone = a.Telefone;
+            oferta.imgMime = imgToString64(oferta);
+            oferta.Foto = null;
+
 
             if (oferta == null)
             {
@@ -146,6 +152,13 @@ namespace FlashBuyWebAPI.Controllers
         private bool OfertaExists(int id)
         {
             return db.Oferta.Count(e => e.IdOferta == id) > 0;
+        }
+
+        private string imgToString64(Oferta entidade)
+        {
+                    
+            return String.Concat("data:", System.Web.MimeMapping.GetMimeMapping(entidade.NomeArquivo), ";base64,", System.Convert.ToBase64String(entidade.Foto));
+            
         }
     }
 }

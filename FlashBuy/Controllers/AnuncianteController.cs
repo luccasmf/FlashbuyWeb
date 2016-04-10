@@ -50,6 +50,7 @@ namespace FlashBuy.Controllers
             NovaOferta.Foto = converterFileToArray(File);
             NovaOferta.IdAnunciante = AnuncianteSessao.IdAnunciante;
             NovaOferta.Status = EnumOferta.pendente;
+            NovaOferta.NomeArquivo = File.FileName;
 
 
 
