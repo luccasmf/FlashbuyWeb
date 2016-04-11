@@ -19,7 +19,7 @@ namespace FlashBuyWebAPI.Controllers
         // GET: api/Ofertas/GetOferta
         public IHttpActionResult GetOferta()
         {
-            List<Oferta> oferta = db.Oferta.Where(p => p.Status == EnumOferta.aprovado || p.Status == EnumOferta.pendente ).ToList(); //&& p.DataFim > DateTime.Now
+            List<Oferta> oferta = db.Oferta.Where(p => p.Status == EnumOferta.aprovado && p.DataFim > DateTime.Now).ToList(); //
 
             foreach (Oferta of in oferta)
             {
