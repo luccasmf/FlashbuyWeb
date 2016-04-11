@@ -19,7 +19,7 @@ namespace FlashBuyWebAPI.Controllers
         // GET: api/Ofertas/GetOferta
         public IHttpActionResult GetOferta()
         {
-            List<Oferta> oferta = db.Oferta.Where(p => p.Status == EnumOferta.aprovado && p.DataFim > DateTime.Now).ToList();
+            List<Oferta> oferta = db.Oferta.Where(p => p.Status == EnumOferta.aprovado || p.Status == EnumOferta.pendente ).ToList(); //&& p.DataFim > DateTime.Now
 
             foreach (Oferta of in oferta)
             {
@@ -35,9 +35,12 @@ namespace FlashBuyWebAPI.Controllers
                 of.Anunciante.NomeFantasia = a.NomeFantasia;
                 of.Anunciante.Email = a.Email;
                 of.Anunciante.Telefone = a.Telefone;
-                of.imgMime = imgToString64(of);
-
-                of.Foto = null;
+                try
+                {
+                    of.imgMime = imgToString64(of);
+                    of.Foto = null;
+                }
+                catch { }
             }
 
             if (oferta.Count == 0)
@@ -62,8 +65,15 @@ namespace FlashBuyWebAPI.Controllers
             oferta.Anunciante.NomeFantasia = a.NomeFantasia;
             oferta.Anunciante.Email = a.Email;
             oferta.Anunciante.Telefone = a.Telefone;
-            oferta.imgMime = imgToString64(oferta);
-            oferta.Foto = null;
+
+            try
+            {
+                oferta.imgMime = imgToString64(oferta);
+                oferta.Foto = null;
+            }
+            catch
+            { }
+
 
 
             if (oferta == null)
