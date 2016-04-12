@@ -137,7 +137,19 @@ namespace FlashBuyWebAPI.Controllers
                     return NotFound();
             }
         }
-      
+
+        [ResponseType(typeof(Cliente))]
+        public IHttpActionResult PostLogin(string IMEI) //IMEI codificado em MD5
+        {
+            
+                var c = db.Cliente.Where(cc => cc.IMEI == IMEI);
+            if (c.Count() >= 1)
+                return Ok(c);
+            else
+                return Ok(c);
+            
+        }
+
         // DELETE: api/Clientes/5
         [ResponseType(typeof(Cliente))]
         public IHttpActionResult DeleteCliente(int id)

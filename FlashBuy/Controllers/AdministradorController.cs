@@ -19,5 +19,22 @@ namespace FlashBuy.Controllers
             var listaOfertas = new HashSet<Oferta>(ofertas);
             return View(listaOfertas);
         }
+
+        [HttpGet]
+        public ActionResult AprovarOferta(int id)
+        {
+
+            var AdministradorSessao = (Administrador)Session["AdministradorSessao"];
+            repositorio.AprovaReprovaOferta(true, id, AdministradorSessao.IdAdministrador);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult ReprovarOferta(int id)
+        {
+            var AdministradorSessao = (Administrador)Session["AdministradorSessao"];
+            repositorio.AprovaReprovaOferta(false, id, AdministradorSessao.IdAdministrador);
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -27,7 +27,7 @@ namespace FlashBuyClassLibrary
         public string Email { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [StringLength(32)]
         public string Senha { get; set; }
 
         public bool Aprovador { get; set; }

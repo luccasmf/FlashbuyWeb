@@ -31,12 +31,12 @@ namespace FlashBuy.Repository
             
         }
 
-        public List<CompraPacote> GetPacotesAnunciante(int idAnunciante)
+        internal List<CompraPacote> GetPacotesAnunciante(int idAnunciante)
         {
             return context.CompraPacote.Where(p => p.IdAnunciante == idAnunciante && p.DataValidade >= DateTime.Now).ToList();
         }
 
-        public bool CriaNovaOferta(Oferta of)
+        internal bool CriaNovaOferta(Oferta of)
         {
             CompraPacote cc = context.CompraPacote.Where(cp => cp.IdCompraPacote == of.IdCompraPacote).FirstOrDefault();
 
@@ -51,7 +51,7 @@ namespace FlashBuy.Repository
             return false;
         }
 
-        public List<Oferta> GetOfertasAtivas(int idAnunciante)
+        internal List<Oferta> GetOfertasAtivas(int idAnunciante)
         {
             return context.Oferta.Where(of => of.IdAnunciante == idAnunciante && (of.Status == EnumOferta.aprovado || of.Status == EnumOferta.pendente)).OrderByDescending(of => of.Status).ToList();
         }

@@ -41,7 +41,7 @@ namespace FlashBuy.Controllers
                 else
                 {
                     Administrador administrador = repositorio.GetAdministrador(Email);
-                    if (administrador.Senha == Senha)
+                    if (administrador.Senha == Util.Helper.GerarHashMd5(Senha))
                     {
                         FormsAuthentication.SetAuthCookie(administrador.Email, true);
                         Session.Add("AdministradorSessao", administrador);
