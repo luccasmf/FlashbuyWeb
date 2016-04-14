@@ -111,6 +111,8 @@ namespace FlashBuyWebAPI.Controllers
         [ResponseType(typeof(Cliente))]
         public IHttpActionResult PostLogin(string IMEI,string nome) //IMEI codificado em MD5
         {
+
+            IMEI = IMEI.Trim();
             try
             {
                 var c = db.Cliente.Where(cc => cc.IMEI == IMEI);
@@ -141,8 +143,8 @@ namespace FlashBuyWebAPI.Controllers
         [ResponseType(typeof(Cliente))]
         public IHttpActionResult PostLogin(string IMEI) //IMEI codificado em MD5
         {
-            
-                var c = db.Cliente.Where(cc => cc.IMEI == IMEI);
+            IMEI = IMEI.Trim();
+            var c = db.Cliente.Where(cc => cc.IMEI == IMEI);
             if (c.Count() >= 1)
                 return Ok(c);
             else
