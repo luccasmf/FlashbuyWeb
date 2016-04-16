@@ -43,7 +43,7 @@ namespace FlashBuy.Controllers
         }
 
         [HttpPost]
-        public ActionResult CriarNova(Oferta NovaOferta, HttpPostedFileBase File)
+        public ActionResult CriarNova(Oferta NovaOferta, HttpPostedFileBase File, string Latitude, string Longitude)
         {
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
 
@@ -51,8 +51,6 @@ namespace FlashBuy.Controllers
             NovaOferta.IdAnunciante = AnuncianteSessao.IdAnunciante;
             NovaOferta.Status = EnumOferta.pendente;
             NovaOferta.NomeArquivo = File.FileName;
-
-
 
             if(repositorio.CriaNovaOferta(NovaOferta))
                 return RedirectToAction("Index");
