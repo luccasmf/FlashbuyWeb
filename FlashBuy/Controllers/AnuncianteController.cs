@@ -7,6 +7,7 @@ using FlashBuyClassLibrary;
 using FlashBuy.Repository;
 using System.IO;
 using System.Drawing;
+using System.Data.Entity.Spatial;
 
 namespace FlashBuy.Controllers
 {
@@ -51,8 +52,9 @@ namespace FlashBuy.Controllers
             NovaOferta.IdAnunciante = AnuncianteSessao.IdAnunciante;
             NovaOferta.Status = EnumOferta.pendente;
             NovaOferta.NomeArquivo = File.FileName;
+            NovaOferta.LocalOferta = DbGeography.FromText(string.Format("POINT({0} {1})", Latitude, Longitude));
 
-            if(repositorio.CriaNovaOferta(NovaOferta))
+            if (repositorio.CriaNovaOferta(NovaOferta))
                 return RedirectToAction("Index");
             else
                 return View();
