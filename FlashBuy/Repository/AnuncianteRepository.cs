@@ -51,6 +51,17 @@ namespace FlashBuy.Repository
             return false;
         }
 
+        internal bool DeletaOferta(int idOferta, int idAnunciante)
+        {
+            Oferta of = context.Oferta.FirstOrDefault(o => o.IdAnunciante == idAnunciante && o.IdOferta == idOferta);
+            context.Oferta.Remove(of);
+            if (context.SaveChanges() > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
         internal List<Oferta> GetOfertasAtivas(int idAnunciante)
         {
             return context.Oferta.Where(of => of.IdAnunciante == idAnunciante && (of.Status == EnumOferta.aprovado || of.Status == EnumOferta.pendente)).OrderByDescending(of => of.Status).ToList();

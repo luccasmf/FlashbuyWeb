@@ -69,6 +69,18 @@ namespace FlashBuy.Controllers
             return data;
         }
 
-        
+        public ActionResult Delete(int id)
+        {
+            var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
+
+            if(repositorio.DeletaOferta(id, AnuncianteSessao.IdAnunciante))
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+
+
     }
 }
