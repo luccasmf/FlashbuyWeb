@@ -20,6 +20,8 @@ namespace FlashBuy.Repository
             try
             {
                 model.Senha = Util.Helper.GerarHashMd5(model.Senha);
+                model.VotoNegativo = 0;
+                model.VotoPositivo = 0;
                 FlashBuyModel context = new FlashBuyModel();
                 context.Anunciante.Add(model);
                 context.SaveChanges();

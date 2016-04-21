@@ -181,5 +181,29 @@ namespace FlashBuyWebAPI.Controllers
         {
             return db.Cliente.Count(e => e.IdCliente == id) > 0;
         }
+
+        public IHttpActionResult PostVotaAnunciante(int idAnunciante, bool voto)
+        {
+            Anunciante a = db.Anunciante.Find(idAnunciante);
+
+            if(voto)
+            {
+                a.VotoPositivo++;
+            }
+            else
+            {
+                a.VotoPositivo--;
+            }
+
+            try
+            {
+                db.SaveChanges();
+                return Ok(true);
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
     }
 }
