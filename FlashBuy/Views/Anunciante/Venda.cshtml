@@ -1,8 +1,54 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Venda";
     Layout = "~/Views/Shared/_LayoutPageAnunciante.cshtml";
 }
+<div style="display:@(ViewBag.Status != null && ViewBag.Status == "Success" ? "block" : "none")" class="alert alert-success">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    @ViewBag.Message
+</div>
+<div style="display:@(ViewBag.Status != null && ViewBag.Status == "Error" ? "block" : "none")" class="alert alert-danger">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    @ViewBag.Message
+</div>
+<h2>Confirmar Venda</h2>
 
-<h2>Venda</h2>
+<div class="panel">
+    <div class="panel-body">
+        <div class="row col-md-12">
+            <div class="row">
+                <div class="form-group">
+                    <label>Código:</label>
+                    @Html.TextBox("codigoCompra", string.Empty, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <button type="button" id="BuscarCompra" class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+        <div id="dadosCompra" class="form-group">
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.9.1.min.js"></script>
+<script>
+    var $j = jQuery.noConflict();
+    $j(document).ready(function () {
+
+        $j(document).on('click', '#BuscarCompra', function () {
+            var codCompra = $j("#codigoCompra").val().trim();
+            if (codCompra != undefined && codCompra != "") {
+                $.ajax({
+                    url: '@Url.Action("BuscarCompra", "Anunciante")',
+                    type: 'post',
+                    data: {
+                        codigo: codCompra
+                    },
+                    success: function (result) {
+                        $('#dadosCompra').html(result);
+                    }
+                });
+            }
+        });
+    });
+</script>
 

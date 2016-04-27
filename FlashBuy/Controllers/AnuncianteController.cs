@@ -26,7 +26,6 @@ namespace FlashBuy.Controllers
         [HttpGet]
         public ActionResult CriarNova()
         {
-            
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
             List<CompraPacote> listaPacotesAnunciante = new List<CompraPacote>();
             listaPacotesAnunciante.AddRange(repositorio.GetPacotesAnunciante(AnuncianteSessao.IdAnunciante));
@@ -73,14 +72,41 @@ namespace FlashBuy.Controllers
         {
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
 
-            if(repositorio.DeletaOferta(id, AnuncianteSessao.IdAnunciante))
+            if (repositorio.DeletaOferta(id, AnuncianteSessao.IdAnunciante))
             {
                 return RedirectToAction("Index");
             }
             return View();
         }
 
+        public ActionResult Venda()
+        {
+            return View();
+        }
 
+        public PartialViewResult BuscarCompra(string codigo)
+        {
+            var model = new Compra();
+            //todo buscar compra por codigo
+            model.Cliente = new Cliente { Nome = "Nome Cliente" };
+            model.Oferta = new Oferta
+            {
+                Status = EnumOferta.cancelado,
+                Anunciante = new Anunciante { NomeFantasia = "Nome" },
+                Produto = "Produto",
+                Valor = 100.00,
+                DataInicio = DateTime.Now,
+                DataFim = DateTime.Now
+            };
+            return PartialView("_DadosCompra", model);
+        }
 
+        [HttpPost]
+        public ActionResult ConfirmarCompra(Oferta Compra)
+        {
+            //todo confirma compra
+
+            return RedirectToAction("Venda");
+        }
     }
 }

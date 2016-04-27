@@ -152,6 +152,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AdministradorRepository.cs" />
+    <Compile Include="Repository\CompraRepository.cs" />
     <Compile Include="Repository\AnuncianteRepository.cs" />
     <Compile Include="Repository\LoginRepository.cs" />
     <Compile Include="Repository\OfertaRepository.cs" />
@@ -171,6 +172,7 @@
     <Content Include="Views\Anunciante\CriarNova.cshtml" />
     <Content Include="Views\Shared\_LayoutPageAdministrador.cshtml" />
     <Content Include="Views\Administrador\Index.cshtml" />
+    <Content Include="Views\Anunciante\_DadosCompra.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
