@@ -21,15 +21,9 @@ namespace FlashBuy.Repository
             {
                 c = null;
             }
-
-             var query = (from a in context.Compra
-                         join b in context.Cliente on a.IdOferta equals b.IdCliente
-                         join d in context.Oferta on a.IdOferta equals d.IdOferta
-                         select new { a, b.Nome, d });
-
+                    
             return (c);
-
-
+            
         }
 
         internal bool CompletaVenda(int codigo)
@@ -37,7 +31,6 @@ namespace FlashBuy.Repository
             Compra c = new Compra();
 
             c = context.Compra.Find(codigo);
-
             c.Status = EnumCompra.Confirmado;
 
             if(context.SaveChanges()>1)
