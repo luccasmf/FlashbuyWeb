@@ -13,12 +13,14 @@ namespace FlashBuy.Controllers
 {
     public class AnuncianteController : Controller
     {
-        AnuncianteRepository repositorio = new AnuncianteRepository();
+        AnuncianteRepository Anuncianterepositorio = new AnuncianteRepository();
+        CompraRepository CompraRepositorio = new CompraRepository();
+
         // GET: Anunciante
         public ActionResult Index()
         {
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
-            List<Oferta> ofertas = repositorio.GetOfertasAtivas(AnuncianteSessao.IdAnunciante);
+            List<Oferta> ofertas = Anuncianterepositorio.GetOfertasAtivas(AnuncianteSessao.IdAnunciante);
             var listaOfertas = new HashSet<Oferta>(ofertas);
             return View(listaOfertas);
         }
@@ -28,7 +30,7 @@ namespace FlashBuy.Controllers
         {
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
             List<CompraPacote> listaPacotesAnunciante = new List<CompraPacote>();
-            listaPacotesAnunciante.AddRange(repositorio.GetPacotesAnunciante(AnuncianteSessao.IdAnunciante));
+            listaPacotesAnunciante.AddRange(Anuncianterepositorio.GetPacotesAnunciante(AnuncianteSessao.IdAnunciante));
             var SelectListItem = new List<SelectListItem>();
             foreach (var item in listaPacotesAnunciante)
             {
@@ -53,7 +55,7 @@ namespace FlashBuy.Controllers
             NovaOferta.NomeArquivo = File.FileName;
             NovaOferta.LocalOferta = DbGeography.FromText(string.Format("POINT({0} {1})", Latitude, Longitude));
 
-            if (repositorio.CriaNovaOferta(NovaOferta))
+            if (Anuncianterepositorio.CriaNovaOferta(NovaOferta))
                 return RedirectToAction("Index");
             else
                 return View();
@@ -72,7 +74,7 @@ namespace FlashBuy.Controllers
         {
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
 
-            if (repositorio.DeletaOferta(id, AnuncianteSessao.IdAnunciante))
+            if (Anuncianterepositorio.DeletaOferta(id, AnuncianteSessao.IdAnunciante))
             {
                 return RedirectToAction("Index");
             }
@@ -84,29 +86,45 @@ namespace FlashBuy.Controllers
             return View();
         }
 
-        public PartialViewResult BuscarCompra(string codigo)
+        public PartialViewResult BuscarCompra(int codigo)
         {
-            var model = new Compra();
+            //var model = new Compra();
             //todo buscar compra por codigo
-            model.Cliente = new Cliente { Nome = "Nome Cliente" };
-            model.Oferta = new Oferta
-            {
-                Status = EnumOferta.cancelado,
-                Anunciante = new Anunciante { NomeFantasia = "Nome" },
-                Produto = "Produto",
-                Valor = 100.00,
-                DataInicio = DateTime.Now,
-                DataFim = DateTime.Now
-            };
-            return PartialView("_DadosCompra", model);
+            //model.Cliente = new Cliente { Nome = "Nome Cliente" };
+            //model.Oferta = new Oferta
+            //{
+            //    Status = EnumOferta.cancelado,
+            //    Anunciante = new Anunciante { NomeFantasia = "Nome" },
+            //    Produto = "Produto",
+            //    Valor = 100.00,
+            //    DataInicio = DateTime.Now,
+            //    DataFim = DateTime.Now
+            //};
+
+            var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];            
+            Compra c = CompraRepositorio.GetCompraByCod(codigo,AnuncianteSessao.IdAnunciante);  //se o anunciante nao for o dono da oferta, vai retornar null
+                      
+            return PartialView("_DadosCompra", c); 
+           
         }
 
         [HttpPost]
-        public ActionResult ConfirmarCompra(Oferta Compra)
+        public ActionResult ConfirmarCompra(Compra compra) //precisa vir a compra toda ou soh o ID
         {
-            //todo confirma compra
+            bool flag = CompraRepositorio.CompletaVenda(compra.IdCompra); //se vier soh o ID da compra tem q arrumar esse parametro :3
 
-            return RedirectToAction("Venda");
+            if(flag)
+            {
+                //sucesso
+                return RedirectToAction("Venda");
+            }
+            else
+            {
+                //falha (retornar mensagem de erro, nao sei como faz)
+                return RedirectToAction("Venda");
+            }
+
+            
         }
     }
 }
