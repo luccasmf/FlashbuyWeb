@@ -89,7 +89,7 @@ namespace FlashBuy.Controllers
         public PartialViewResult BuscarCompra(int codigo)
         {
             //var model = new Compra();
-            //todo buscar compra por codigo
+            //model.IdCompra = 1;
             //model.Cliente = new Cliente { Nome = "Nome Cliente" };
             //model.Oferta = new Oferta
             //{
@@ -109,19 +109,21 @@ namespace FlashBuy.Controllers
         }
 
         [HttpPost]
-        public ActionResult ConfirmarCompra(Compra compra) //precisa vir a compra toda ou soh o ID
+        public ActionResult ConfirmarCompra(Compra compra)
         {
-            bool flag = CompraRepositorio.CompletaVenda(compra.IdCompra); //se vier soh o ID da compra tem q arrumar esse parametro :3
+            bool flag = CompraRepositorio.CompletaVenda(compra.IdCompra);
 
             if(flag)
             {
-                //sucesso
-                return RedirectToAction("Venda");
+                ViewBag.Status = "Success";
+                ViewBag.Message = "Venda confirmada com susesso!";
+                return View("Venda");
             }
             else
             {
-                //falha (retornar mensagem de erro, nao sei como faz)
-                return RedirectToAction("Venda");
+                ViewBag.Status = "Error";
+                ViewBag.Message = "Ocorreu um erro ao executar esta operação.";
+                return View("Venda");
             }
 
             

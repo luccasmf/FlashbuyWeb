@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="form-group">
                     <label>Código:</label>
-                    @Html.TextBox("codigoCompra", string.Empty, new { @class = "form-control" })
+                    @Html.TextBox("codigoCompra", string.Empty, new { @class = "form-control", type="number" })
                 </div>
             </div>
             <div class="form-group text-center">
@@ -41,7 +41,7 @@
                     url: '@Url.Action("BuscarCompra", "Anunciante")',
                     type: 'post',
                     data: {
-                        codigo: codCompra
+                        "codigo": codCompra
                     },
                     success: function (result) {
                         $('#dadosCompra').html(result);

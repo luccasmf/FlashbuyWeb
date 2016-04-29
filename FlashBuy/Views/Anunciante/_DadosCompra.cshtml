@@ -45,8 +45,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Valor:</label>
-                    @Html.TextBoxFor(x => x.Oferta.Status, new { @class = "form-control", disabled = "disabled", value = FlashBuy.Util.Helper.GetEnumDescription((FlashBuyClassLibrary.EnumOferta)Model.Oferta.Status) })
+                    <label>Status:</label>
+                    @Html.TextBox("Oferta.Status", FlashBuy.Util.Helper.GetEnumDescription((FlashBuyClassLibrary.EnumOferta)Model.Oferta.Status), new { @class = "form-control", disabled = "disabled" })
                 </div>
 
                 <div class="form-group text-center">
