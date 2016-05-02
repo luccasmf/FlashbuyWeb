@@ -13,15 +13,21 @@ namespace FlashBuy.Repository
         {
             Compra c = new Compra();
 
-            c = context.Compra.Find(codigo);            
+            c = context.Compra.Find(codigo);
+
+            if(c==null)
+            {
+                return c;
+            }
+
             c.Cliente = context.Cliente.Find(c.IdCliente);
             c.Oferta = context.Oferta.Find(c.IdOferta);
 
-            if(c.Oferta.IdAnunciante != idAnunciante)
+            if (c.Oferta.IdAnunciante != idAnunciante || c.Status == EnumCompra.Confirmado)
             {
                 c = null;
             }
-                    
+
             return (c);
             
         }

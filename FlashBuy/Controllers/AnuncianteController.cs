@@ -86,7 +86,7 @@ namespace FlashBuy.Controllers
             return View();
         }
 
-        public PartialViewResult BuscarCompra(int codigo)
+        public ActionResult BuscarCompra(int codigo)
         {
             //var model = new Compra();
             //model.IdCompra = 1;
@@ -103,9 +103,18 @@ namespace FlashBuy.Controllers
 
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];            
             Compra c = CompraRepositorio.GetCompraByCod(codigo,AnuncianteSessao.IdAnunciante);  //se o anunciante nao for o dono da oferta, vai retornar null
-                      
-            return PartialView("_DadosCompra", c); 
-           
+
+            if (c == null)
+            {
+                ViewBag.Status = "Error";
+                ViewBag.Message = "Esta venda já foi confirmada ou não existe!";
+                return View("Venda");
+            }
+            else
+            {
+
+                return PartialView("_DadosCompra", c);
+            }
         }
 
         [HttpPost]
