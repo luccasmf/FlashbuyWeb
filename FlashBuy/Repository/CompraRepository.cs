@@ -33,7 +33,7 @@ namespace FlashBuy.Repository
             c = context.Compra.Find(codigo);
             c.Status = EnumCompra.Confirmado;
 
-            if(context.SaveChanges()>1)
+            if(context.SaveChanges()>0)
             {
                 return true;
             }
