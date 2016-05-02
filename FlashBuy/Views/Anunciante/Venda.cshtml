@@ -37,16 +37,28 @@
         $j(document).on('click', '#BuscarCompra', function () {
             var codCompra = $j("#codigoCompra").val().trim();
             if (codCompra != undefined && codCompra != "") {
-                $.ajax({
+                $j(".alert-danger").hide();
+                $j.ajax({
                     url: '@Url.Action("BuscarCompra", "Anunciante")',
                     type: 'post',
                     data: {
                         "codigo": codCompra
                     },
                     success: function (result) {
-                        $('#dadosCompra').html(result);
+                        if (result[0] != undefined && result[0] == "Error") {
+                            $j(".alert-danger").text(result[1]);
+                            $j(".alert-danger").show();
+                        }
+                        else {
+                            $j('#dadosCompra').html(result);
+                            $j(".alert-danger").hide();
+                        }
                     }
                 });
+            }
+            else {
+                $j(".alert-danger").text("Digite um código válido!");
+                $j(".alert-danger").show();
             }
         });
     });

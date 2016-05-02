@@ -106,13 +106,13 @@ namespace FlashBuy.Controllers
 
             if (c == null)
             {
-                ViewBag.Status = "Error";
-                ViewBag.Message = "Esta venda já foi confirmada ou não existe!";
-                return View("Venda");
+                string[] arr = new string[] { "Error", "Esta venda já foi confirmada ou não existe!" };
+                //ViewBag.Status = "Error";
+                //ViewBag.Message = "Esta venda já foi confirmada ou não existe!";
+                return Json(arr);
             }
             else
             {
-
                 return PartialView("_DadosCompra", c);
             }
         }
@@ -134,8 +134,6 @@ namespace FlashBuy.Controllers
                 ViewBag.Message = "Ocorreu um erro ao executar esta operação.";
                 return View("Venda");
             }
-
-            
         }
     }
 }
