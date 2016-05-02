@@ -32,6 +32,7 @@ namespace FlashBuy.Repository
 
             c = context.Compra.Find(codigo);
             c.Status = EnumCompra.Confirmado;
+            c.DataHora = DateTime.Now;
 
             if(context.SaveChanges()>0)
             {
