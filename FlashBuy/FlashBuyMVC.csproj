@@ -173,6 +173,7 @@
     <Content Include="Views\Shared\_LayoutPageAdministrador.cshtml" />
     <Content Include="Views\Administrador\Index.cshtml" />
     <Content Include="Views\Anunciante\_DadosCompra.cshtml" />
+    <Content Include="Views\Anunciante\Vendas.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

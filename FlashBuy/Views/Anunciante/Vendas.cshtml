@@ -1,0 +1,52 @@
+﻿@model IEnumerable<FlashBuyClassLibrary.Compra>
+
+@{
+    ViewBag.Title = "Vendas";
+    Layout = "~/Views/Shared/_LayoutPageAnunciante.cshtml";
+}
+
+<h2>Vendas</h2>
+
+<p>
+    @Html.ActionLink("Nova Venda", "Venda")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Cliente.IMEI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Oferta.Produto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataHora)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cliente.IMEI)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Oferta.Produto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataHora)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdCompra }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdCompra }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdCompra })
+        </td>
+    </tr>
+}
+
+</table>

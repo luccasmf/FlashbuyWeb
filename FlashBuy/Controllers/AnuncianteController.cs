@@ -101,8 +101,8 @@ namespace FlashBuy.Controllers
             //    DataFim = DateTime.Now
             //};
 
-            var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];            
-            Compra c = CompraRepositorio.GetCompraByCod(codigo,AnuncianteSessao.IdAnunciante);  //se o anunciante nao for o dono da oferta, vai retornar null
+            var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
+            Compra c = CompraRepositorio.GetCompraByCod(codigo, AnuncianteSessao.IdAnunciante);  //se o anunciante nao for o dono da oferta, vai retornar null
 
             if (c == null)
             {
@@ -122,7 +122,7 @@ namespace FlashBuy.Controllers
         {
             bool flag = CompraRepositorio.CompletaVenda(compra.IdCompra);
 
-            if(flag)
+            if (flag)
             {
                 ViewBag.Status = "Success";
                 ViewBag.Message = "Venda confirmada com susesso!";
@@ -139,6 +139,7 @@ namespace FlashBuy.Controllers
         public ActionResult Ofertas()
         {
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
+            //   *** Alterar linha abaxo: retornar todas as ofertas do anunciante ***
             List<Oferta> ofertas = Anuncianterepositorio.GetOfertasAtivas(AnuncianteSessao.IdAnunciante);
             var listaOfertas = new HashSet<Oferta>(ofertas);
             return View(listaOfertas);
@@ -147,9 +148,9 @@ namespace FlashBuy.Controllers
         public ActionResult Vendas()
         {
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
-            List<Oferta> ofertas = Anuncianterepositorio.GetOfertasAtivas(AnuncianteSessao.IdAnunciante);
-            var listaOfertas = new HashSet<Oferta>(ofertas);
-            return View(listaOfertas);
+            List<Compra> compras = Anuncianterepositorio.GetVendasConfirmadas(AnuncianteSessao.IdAnunciante);
+            var listaCompras = new HashSet<Compra>(compras);
+            return View(listaCompras);
 
         }
 
