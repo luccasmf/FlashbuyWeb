@@ -151,7 +151,6 @@ namespace FlashBuy.Controllers
             List<Compra> compras = Anuncianterepositorio.GetVendasConfirmadas(AnuncianteSessao.IdAnunciante);
             var listaCompras = new HashSet<Compra>(compras);
             return View(listaCompras);
-
         }
 
     }
