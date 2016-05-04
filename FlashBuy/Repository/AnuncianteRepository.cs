@@ -73,5 +73,10 @@ namespace FlashBuy.Repository
         {
             return context.Compra.Where(cp => cp.Oferta.IdAnunciante == idAnunciante && (cp.Status == EnumCompra.Confirmado)).OrderByDescending(cp => cp.IdCompra).ToList();
         }
+
+        internal List<Oferta> GetOfertas(int idAnunciante)
+        {
+            return context.Oferta.Where(of => of.IdAnunciante == idAnunciante).OrderByDescending(of => of.DataInicio).ToList();
+        }
     }
 }

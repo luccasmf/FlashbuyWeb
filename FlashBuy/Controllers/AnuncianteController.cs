@@ -140,7 +140,7 @@ namespace FlashBuy.Controllers
         {
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
             //   *** Alterar linha abaxo: retornar todas as ofertas do anunciante ***
-            List<Oferta> ofertas = Anuncianterepositorio.GetOfertasAtivas(AnuncianteSessao.IdAnunciante);
+            List<Oferta> ofertas = Anuncianterepositorio.GetOfertas(AnuncianteSessao.IdAnunciante);
             var listaOfertas = new HashSet<Oferta>(ofertas);
             return View(listaOfertas);
         }
