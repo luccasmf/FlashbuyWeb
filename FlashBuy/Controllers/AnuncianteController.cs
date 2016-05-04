@@ -135,5 +135,23 @@ namespace FlashBuy.Controllers
                 return View("Venda");
             }
         }
+
+        public ActionResult Ofertas()
+        {
+            var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
+            List<Oferta> ofertas = Anuncianterepositorio.GetOfertasAtivas(AnuncianteSessao.IdAnunciante);
+            var listaOfertas = new HashSet<Oferta>(ofertas);
+            return View(listaOfertas);
+        }
+
+        public ActionResult Vendas()
+        {
+            var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
+            List<Oferta> ofertas = Anuncianterepositorio.GetOfertasAtivas(AnuncianteSessao.IdAnunciante);
+            var listaOfertas = new HashSet<Oferta>(ofertas);
+            return View(listaOfertas);
+
+        }
+
     }
 }
