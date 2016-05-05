@@ -174,6 +174,9 @@
     <Content Include="Views\Administrador\Index.cshtml" />
     <Content Include="Views\Anunciante\_DadosCompra.cshtml" />
     <Content Include="Views\Anunciante\Vendas.cshtml" />
+    <Content Include="Views\Administrador\Anunciantes.cshtml" />
+    <Content Include="Views\Administrador\Ofertas.cshtml" />
+    <Content Include="Views\Administrador\Usuarios.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

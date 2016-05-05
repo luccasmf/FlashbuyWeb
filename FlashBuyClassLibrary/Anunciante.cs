@@ -21,6 +21,7 @@ namespace FlashBuyClassLibrary
         public int IdAnunciante { get; set; }
 
         [StringLength(50)]
+        [DisplayName("CPF/CNPJ")]
         public string CPF_CNPJ { get; set; }
 
         [Required]

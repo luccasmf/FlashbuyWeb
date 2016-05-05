@@ -15,7 +15,7 @@ namespace FlashBuy.Controllers
         // GET: Administrador
         public ActionResult Index()
         {
-            List<Oferta> ofertas = repositorio.GetOfertas();
+            List<Oferta> ofertas = repositorio.GetOfertasPendentes();
             var listaOfertas = new HashSet<Oferta>(ofertas);
             return View(listaOfertas);
         }
@@ -45,6 +45,27 @@ namespace FlashBuy.Controllers
             }
             repositorio.AprovaReprovaOferta(false, id, AdministradorSessao.IdAdministrador);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Ofertas()
+        {
+            List<Oferta> ofertas = repositorio.GetOfertas();
+            var listaOfertas = new HashSet<Oferta>(ofertas);
+            return View(listaOfertas);
+        }
+
+        public ActionResult Anunciantes()
+        {
+            List<Anunciante> anunciantes = repositorio.GetAnunciantes();
+            var listaAnunciantes = new HashSet<Anunciante>(anunciantes);
+            return View(listaAnunciantes);
+        }
+
+        public ActionResult Usuarios()
+        {
+            List<Cliente> clientes = repositorio.GetClientes();
+            var listaClientes = new HashSet<Cliente>(clientes);
+            return View(listaClientes);
         }
     }
 }
