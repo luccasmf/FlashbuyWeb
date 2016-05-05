@@ -25,6 +25,12 @@ namespace FlashBuy.Controllers
         {
 
             var AdministradorSessao = (Administrador)Session["AdministradorSessao"];
+            if (AdministradorSessao == null)
+            {
+                return Redirect("~/Login");
+            }
+
+
             repositorio.AprovaReprovaOferta(true, id, AdministradorSessao.IdAdministrador);
             return RedirectToAction("Index");
         }
@@ -33,6 +39,10 @@ namespace FlashBuy.Controllers
         public ActionResult ReprovarOferta(int id)
         {
             var AdministradorSessao = (Administrador)Session["AdministradorSessao"];
+            if (AdministradorSessao == null)
+            {
+                return Redirect("~/Login");
+            }
             repositorio.AprovaReprovaOferta(false, id, AdministradorSessao.IdAdministrador);
             return RedirectToAction("Index");
         }

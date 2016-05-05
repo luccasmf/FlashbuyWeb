@@ -20,6 +20,11 @@ namespace FlashBuy.Controllers
         public ActionResult Index()
         {
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
+            if (AnuncianteSessao == null)
+            {
+                return Redirect("~/Login");
+            }
+
             List<Oferta> ofertas = Anuncianterepositorio.GetOfertasAtivas(AnuncianteSessao.IdAnunciante);
             var listaOfertas = new HashSet<Oferta>(ofertas);
             return View(listaOfertas);
@@ -29,6 +34,11 @@ namespace FlashBuy.Controllers
         public ActionResult CriarNova()
         {
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
+            if (AnuncianteSessao == null)
+            {
+                return Redirect("~/Login");
+            }
+
             List<CompraPacote> listaPacotesAnunciante = new List<CompraPacote>();
             listaPacotesAnunciante.AddRange(Anuncianterepositorio.GetPacotesAnunciante(AnuncianteSessao.IdAnunciante));
             var SelectListItem = new List<SelectListItem>();
@@ -48,6 +58,10 @@ namespace FlashBuy.Controllers
         public ActionResult CriarNova(Oferta NovaOferta, HttpPostedFileBase File, string Latitude, string Longitude)
         {
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
+            if (AnuncianteSessao == null)
+            {
+                return Redirect("~/Login");
+            }
 
             NovaOferta.Foto = converterFileToArray(File);
             NovaOferta.IdAnunciante = AnuncianteSessao.IdAnunciante;
@@ -73,6 +87,10 @@ namespace FlashBuy.Controllers
         public ActionResult Delete(int id)
         {
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
+            if (AnuncianteSessao == null)
+            {
+                return Redirect("~/Login");
+            }
 
             if (Anuncianterepositorio.DeletaOferta(id, AnuncianteSessao.IdAnunciante))
             {
@@ -102,6 +120,11 @@ namespace FlashBuy.Controllers
             //};
 
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
+            if (AnuncianteSessao == null)
+            {
+                return Redirect("~/Login");
+            }
+
             Compra c = CompraRepositorio.GetCompraByCod(codigo, AnuncianteSessao.IdAnunciante);  //se o anunciante nao for o dono da oferta, vai retornar null
 
             if (c == null)
@@ -138,7 +161,13 @@ namespace FlashBuy.Controllers
 
         public ActionResult Ofertas()
         {
+
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
+            if (AnuncianteSessao == null)
+            {
+                return Redirect("~/Login");
+            }
+
             //   *** Alterar linha abaxo: retornar todas as ofertas do anunciante ***
             List<Oferta> ofertas = Anuncianterepositorio.GetOfertas(AnuncianteSessao.IdAnunciante);
             var listaOfertas = new HashSet<Oferta>(ofertas);
@@ -148,6 +177,11 @@ namespace FlashBuy.Controllers
         public ActionResult Vendas()
         {
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
+            if (AnuncianteSessao == null)
+            {
+                return Redirect("~/Login");
+            }
+
             List<Compra> compras = Anuncianterepositorio.GetVendasConfirmadas(AnuncianteSessao.IdAnunciante);
             var listaCompras = new HashSet<Compra>(compras);
             return View(listaCompras);
