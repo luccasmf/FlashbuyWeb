@@ -23,7 +23,18 @@
 </head>
 <body>
     <div class="container">
-
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">FlashBuy</a>
+                </div>
+        </nav>
         @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form-signin" }))
         {
             <h2 class="form-signin-heading">Conecte-se</h2>
@@ -32,11 +43,16 @@
             <label for="inputPassword" class="sr-only">Senha</label>
                 <input name="Senha" type="password" id="inputPassword" class="form-control" placeholder="Senha" required>
                 @Html.DropDownList("TipoUsuario", new SelectList(ViewBag.listaTiposUsuarios, "Value", "Text"), new { @class = "form-control" })
-                <div class="checkbox">
-                    @*<label>
+                @*<div class="checkbox">
+                    <label>
                         <input type="checkbox" value="remember-me"> Lembre-me
-                    </label>*@
-                </div>
+                    </label>
+                </div>*@
+            <div align="right" style="font-size:8pt">
+                <p><a href="~/CadastroAnunciante/Index">Não possui conta?</a></p>
+                <p><a href="#">Esqueceu sua senha?</a></p>
+                <p><a href="#">Alterar senha</a></p>
+            </div>
                 <span style="color:red;">@ViewBag.MsgErro</span>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
         }
