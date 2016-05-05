@@ -2,6 +2,7 @@ namespace FlashBuyClassLibrary
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -16,8 +17,10 @@ namespace FlashBuyClassLibrary
 
         public int IdOferta { get; set; }
 
+        [DisplayName("Data/Hora")]
         public DateTime DataHora { get; set; }
 
+        [DisplayName("Status da compra")]
         public EnumCompra Status { get; set; }
 
         public virtual Cliente Cliente { get; set; }

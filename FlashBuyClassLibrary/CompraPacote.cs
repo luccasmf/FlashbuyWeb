@@ -2,6 +2,7 @@ namespace FlashBuyClassLibrary
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -16,6 +17,7 @@ namespace FlashBuyClassLibrary
         }
 
         [Key]
+        [DisplayName("Pacote")]
         public int IdCompraPacote { get; set; }
 
         public int IdPacote { get; set; }

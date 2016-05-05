@@ -2,6 +2,7 @@ namespace FlashBuyClassLibrary
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -27,18 +28,23 @@ namespace FlashBuyClassLibrary
         [Column(TypeName = "image")]
         public byte[] Foto { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public double Valor { get; set; }
 
+        [DisplayName("Início")]
         public DateTime DataInicio { get; set; }
 
+        [DisplayName("Fim")]
         public DateTime DataFim { get; set; }
 
+        [DisplayName("Status da oferta")]
         public EnumOferta Status { get; set; }
 
         public int IdCompraPacote { get; set; }
 
         public int? IdAprovador { get; set; }
 
+        [DisplayName("Aprovado em")]
         public DateTime? DataHoraAprovacao { get; set; }
 
         public virtual Administrador Administrador { get; set; }

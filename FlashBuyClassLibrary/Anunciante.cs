@@ -2,6 +2,7 @@ namespace FlashBuyClassLibrary
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -24,6 +25,7 @@ namespace FlashBuyClassLibrary
 
         [Required]
         [StringLength(50)]
+        [DisplayName("Razão Social do Anunciante")]
         public string RazaoSocial { get; set; }
 
         [StringLength(50)]

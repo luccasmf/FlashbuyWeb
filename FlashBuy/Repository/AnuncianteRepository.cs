@@ -71,7 +71,16 @@ namespace FlashBuy.Repository
 
         internal List<Compra> GetVendasConfirmadas(int idAnunciante)
         {
-            return context.Compra.Where(cp => cp.Oferta.IdAnunciante == idAnunciante && (cp.Status == EnumCompra.Confirmado)).OrderByDescending(cp => cp.IdCompra).ToList();
+            List<Compra> compras = context.Compra.Where(cp => cp.Oferta.IdAnunciante == idAnunciante && (cp.Status == EnumCompra.Confirmado)).OrderByDescending(cp => cp.IdCompra).ToList();
+
+            
+            foreach (Compra c in compras)
+            {
+                c.Cliente = context.Cliente.Find(c.IdCliente);
+                c.Oferta = context.Oferta.Find(c.IdOferta);
+            }
+
+            return compras;
         }
 
         internal List<Oferta> GetOfertas(int idAnunciante)
