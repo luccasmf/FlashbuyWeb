@@ -21,6 +21,7 @@ namespace FlashBuyClassLibrary
 
         [Required]
         [StringLength(50)]
+        [DisplayName("Código único")]
         public string IMEI { get; set; }
 
         [Required]
