@@ -33,9 +33,9 @@
                 <input name="Senha" type="password" id="inputPassword" class="form-control" placeholder="Senha" required>
                 @Html.DropDownList("TipoUsuario", new SelectList(ViewBag.listaTiposUsuarios, "Value", "Text"), new { @class = "form-control" })
                 <div class="checkbox">
-                    <label>
+                    @*<label>
                         <input type="checkbox" value="remember-me"> Lembre-me
-                    </label>
+                    </label>*@
                 </div>
                 <span style="color:red;">@ViewBag.MsgErro</span>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
