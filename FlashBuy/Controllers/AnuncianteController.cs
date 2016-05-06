@@ -187,5 +187,27 @@ namespace FlashBuy.Controllers
             return View(listaCompras);
         }
 
+        public ActionResult Cancelar() 
+        {
+
+            // IMPLEMENTAR
+            return View();
+
+        }
+
+        public ActionResult Desativar()
+        {
+            // IMPLEMENTAR
+            return View();
+        }
+
+        public ActionResult Reativar()
+        {
+            // IMPLEMENTAR
+            return View();
+
+        }
+
+
     }
 }
