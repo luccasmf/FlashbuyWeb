@@ -15,10 +15,11 @@ namespace FlashBuy.Controllers
     {
         AnuncianteRepository Anuncianterepositorio = new AnuncianteRepository();
         CompraRepository CompraRepositorio = new CompraRepository();
-
+        Uri urlAtual;
         // GET: Anunciante
         public ActionResult Index()
         {
+            urlAtual = Request.Url;
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
             if (AnuncianteSessao == null)
             {
@@ -92,10 +93,16 @@ namespace FlashBuy.Controllers
                 return Redirect("~/Login");
             }
 
+
+
             if (Anuncianterepositorio.DeletaOferta(id, AnuncianteSessao.IdAnunciante))
             {
                 return RedirectToAction("Index");
             }
+
+
+
+            //url.
             return View();
         }
 
@@ -187,27 +194,96 @@ namespace FlashBuy.Controllers
             return View(listaCompras);
         }
 
-        public ActionResult Cancelar() 
+        public ActionResult Cancelar(int id)
         {
+            var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
+            if (AnuncianteSessao == null)
+            {
+                return Redirect("~/Login");
+            }
 
-            // IMPLEMENTAR
-            return View();
+            bool flag = Anuncianterepositorio.MudaStatusOferta(id, AnuncianteSessao.IdAnunciante, EnumOferta.cancelado);
+
+            if (flag)
+            {
+                ViewBag.Status = "Success";
+                ViewBag.Message = "Venda confirmada com susesso!";
+            }
+            else
+            {
+                ViewBag.Status = "Error";
+                ViewBag.Message = "Ocorreu um erro ao executar esta operação.";
+            }
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        public ActionResult Desativar(int id)
+        {
+            var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
+            if (AnuncianteSessao == null)
+            {
+                return Redirect("~/Login");
+            }
+
+            bool flag = Anuncianterepositorio.MudaStatusOferta(id, AnuncianteSessao.IdAnunciante, EnumOferta.inativa);
+
+            if (flag)
+            {
+                ViewBag.Status = "Success";
+                ViewBag.Message = "Venda confirmada com susesso!";
+            }
+            else
+            {
+                ViewBag.Status = "Error";
+                ViewBag.Message = "Ocorreu um erro ao executar esta operação.";
+            }
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        public ActionResult Reativar(int id)
+        {
+            var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
+            if (AnuncianteSessao == null)
+            {
+                return Redirect("~/Login");
+            }
+
+
+            bool flag = Anuncianterepositorio.MudaStatusOferta(id, AnuncianteSessao.IdAnunciante, EnumOferta.pendente);
+
+
+            if (flag)
+            {
+                ViewBag.Status = "Success";
+                ViewBag.Message = "Venda confirmada com susesso!";
+            }
+            else
+            {
+                ViewBag.Status = "Error";
+                ViewBag.Message = "Ocorreu um erro ao executar esta operação.";
+            }
+
+            return Redirect(Request.UrlReferrer.ToString());
+
 
         }
 
-        public ActionResult Desativar()
+        public ActionResult Editar(int id)
         {
-            // IMPLEMENTAR
-            return View();
+            var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
+            if (AnuncianteSessao == null)
+            {
+                return Redirect("~/Login");
+            }
+
+            Oferta oferta = Anuncianterepositorio.GetOfertaById(id, AnuncianteSessao.IdAnunciante);
+
+            //colocar pagina de edição de oferta
+            return View("#", oferta);
+
         }
-
-        public ActionResult Reativar()
-        {
-            // IMPLEMENTAR
-            return View();
-
-        }
-
 
     }
 }

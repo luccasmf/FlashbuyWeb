@@ -15,6 +15,12 @@ namespace FlashBuy.Controllers
         // GET: Administrador
         public ActionResult Index()
         {
+            var AdministradorSessao = (Administrador)Session["AdministradorSessao"];
+            if (AdministradorSessao == null)
+            {
+                return Redirect("~/Login");
+            }
+
             List<Oferta> ofertas = repositorio.GetOfertasPendentes();
             var listaOfertas = new HashSet<Oferta>(ofertas);
             return View(listaOfertas);

@@ -87,5 +87,42 @@ namespace FlashBuy.Repository
         {
             return context.Oferta.Where(of => of.IdAnunciante == idAnunciante).OrderByDescending(of => of.DataInicio).ToList();
         }
+
+        internal bool MudaStatusOferta(int idOferta, int idAnunciante, EnumOferta status)
+        {
+            Oferta of = context.Oferta.Find(idOferta);
+
+            if(of.IdAnunciante == idAnunciante)
+            {
+                of.Status = status;
+                of.DataHoraAprovacao = null;
+
+                if(DateTime.Now > of.DataFim)
+                {
+                    return false;
+                }
+
+                if(context.SaveChanges()>0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        internal Oferta GetOfertaById(int idOferta, int idAnunciante)
+        {
+            Oferta oferta = context.Oferta.Find(idOferta);
+            if(!(oferta.IdAnunciante == idAnunciante))
+            {
+                oferta = null;
+            }
+
+            return oferta;
+        }
     }
 }

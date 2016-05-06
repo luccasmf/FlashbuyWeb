@@ -14,6 +14,8 @@ namespace FlashBuyClassLibrary
         expirado,
         [Description("Cancelado")]
         cancelado,
-        
+        [Description("Inativa")]
+        inativa,
+
     }
 }
