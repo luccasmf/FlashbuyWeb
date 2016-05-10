@@ -1,0 +1,84 @@
+﻿@model FlashBuyClassLibrary.Oferta
+@{
+    ViewBag.Title = "Editar Oferta";
+    Layout = "~/Views/Shared/_LayoutPageAnunciante.cshtml";
+}
+<div style="display:@(ViewBag.Status != null && ViewBag.Status == "Success" ? "block" : "none")" class="alert alert-success">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    @ViewBag.Message
+</div>
+<div style="display:@(ViewBag.Status != null && ViewBag.Status == "Error" ? "block" : "none")" class="alert alert-danger">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    @ViewBag.Message
+</div>
+<h2>Editar Oferta</h2>
+<div class="row col-md-12">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            @{
+                var imgSrc = "";
+                if (Model != null && Model.Foto != null)
+                {
+                    var base64 = Convert.ToBase64String(Model.Foto);
+                    imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                }
+            }
+
+            @using (Html.BeginForm("EditarOferta", "Anunciante", FormMethod.Post))
+            {
+                @Html.HiddenFor(x => x.IdOferta)
+                <div class="form-group">
+                    <div class="form-group">
+                        <label>Anunciante:</label>
+                        @Html.TextBoxFor(x => x.Anunciante.NomeFantasia, new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-3">
+                            <img src="@imgSrc" style="max-width:100%" class="img-thumbnail" />
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label>Produto: </label>
+                                @Html.TextBoxFor(x => x.Produto, Model.Status == FlashBuyClassLibrary.EnumOferta.aprovado ? (object)new { @class = "form-control", disabled = "disabled" } : (object)new { @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <label>Valor:</label>
+                                @Html.TextBoxFor(x => x.Valor, Model.Status == FlashBuyClassLibrary.EnumOferta.aprovado ? (object)new { @class = "form-control", disabled = "disabled" } : (object)new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label>Data de Início:</label>
+                            @Html.TextBoxFor(x => x.DataInicio, Model.Status == FlashBuyClassLibrary.EnumOferta.aprovado ? (object)new { @class = "form-control", disabled = "disabled" } : (object)new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-6">
+                            <label>Data de Fim:</label>
+                            @Html.TextBoxFor(x => x.DataFim, Model.Status == FlashBuyClassLibrary.EnumOferta.aprovado ? (object)new { @class = "form-control", disabled = "disabled" } : (object)new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Status:</label>
+                        @Html.TextBox("Oferta.Status", FlashBuy.Util.Helper.GetEnumDescription((FlashBuyClassLibrary.EnumOferta)Model.Status), new { @class = "form-control", disabled = "disabled" })
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button type="button" id="btnCancelar" class="btn btn-default">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" @(Model.Status == FlashBuyClassLibrary.EnumOferta.aprovado ? "disabled='disabled'" : "")>Salvar</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/jquery-1.9.1.min.js"></script>
+<script>
+    var $j = jQuery.noConflict();
+    $j(document).ready(function () {
+        $j(document).on('click', '#btnCancelar', function () {
+            parent.history.back();
+        });
+    });
+</script>

@@ -270,7 +270,8 @@ namespace FlashBuy.Controllers
 
         }
 
-        public ActionResult Editar(int id)
+        [HttpGet]
+        public ActionResult EditarOferta(int id)
         {
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
             if (AnuncianteSessao == null)
@@ -280,10 +281,48 @@ namespace FlashBuy.Controllers
 
             Oferta oferta = Anuncianterepositorio.GetOfertaById(id, AnuncianteSessao.IdAnunciante);
 
-            //colocar pagina de edição de oferta
-            return View("#", oferta);
+            if (oferta != null)
+            {
+                oferta.Anunciante = AnuncianteSessao;
+            }
 
+            return View("EditarOferta", oferta);
         }
 
+        [HttpPost]
+        public ActionResult EditarOferta(Oferta oferta)
+        {
+            var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
+            if (AnuncianteSessao == null)
+            {
+                return Redirect("~/Login");
+            }
+
+            Oferta model = Anuncianterepositorio.GetOfertaById(oferta.IdOferta, AnuncianteSessao.IdAnunciante);
+
+            if (model.Status != EnumOferta.aprovado)
+            {
+                //realizar update da oferta
+                bool flag = true;
+
+                if (flag)
+                {
+                    ViewBag.Status = "Success";
+                    ViewBag.Message = "Edição realizada com susesso!";
+                    return View("EditarOferta", model);
+                }
+                else
+                {
+                    ViewBag.Status = "Error";
+                    ViewBag.Message = "Ocorreu um erro ao executar esta operação.";
+                    return View("EditarOferta", model);
+                }
+            }
+            else {
+                ViewBag.Status = "Error";
+                ViewBag.Message = "Esta oferta já está aprovada e não é possível realizar alterações.";
+                return View("EditarOferta", model);
+            }
+        }
     }
 }

@@ -1,58 +1,66 @@
 ﻿@model FlashBuyClassLibrary.Compra
 @Html.HiddenFor(x => x.IdCompra)
-<div class="panel" style="@(Model != null && Model.IdCompra > 0 ? "block" : "none")">
-    <div class="panel-heading">
-        Dados da Compra
-    </div>
-    <div class="panel-body">
-        @{
-            var imgSrc = "";
-            if (Model.Oferta != null && Model.Oferta.Foto != null)
-            {
-                var base64 = Convert.ToBase64String(Model.Oferta.Foto);
-                imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+<div class="row col-md-12">
+    <div class="panel panel-default" style="@(Model != null && Model.IdCompra > 0 ? "block" : "none")">
+        <div class="panel-heading">
+            <b>Dados da Compra</b>
+        </div>
+        <div class="panel-body">
+            @{
+                var imgSrc = "";
+                if (Model.Oferta != null && Model.Oferta.Foto != null)
+                {
+                    var base64 = Convert.ToBase64String(Model.Oferta.Foto);
+                    imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                }
             }
-        }
-        @using (Html.BeginForm("ConfirmarCompra", "Anunciante", FormMethod.Post))
-        {
-            @Html.HiddenFor(x => x.IdCompra)
-            <div class="row">
+            @using (Html.BeginForm("ConfirmarCompra", "Anunciante", FormMethod.Post))
+            {
+                @Html.HiddenFor(x => x.IdCompra)
                 <div class="form-group">
-                    <label>Nome do Cliente:</label>
-                    @Html.TextBoxFor(x => x.Cliente.Nome, new { @class = "form-control", disabled = "disabled" })
-                </div>
-                <div class="form-group">
-                    <label>Anunciante:</label>
-                    @Html.TextBoxFor(x => x.Oferta.Anunciante.NomeFantasia, new { @class = "form-control", disabled = "disabled" })
-                </div>
-                <div class="form-group">
-                    <label>Produto: </label>
-                    @Html.TextBoxFor(x => x.Oferta.Produto, new { @class = "form-control", disabled = "disabled" })
-                    <img src="@imgSrc" />
-                </div>
-                <div class="form-group">
-                    <label>Valor:</label>
-                    @Html.TextBoxFor(x => x.Oferta.Valor, new { @class = "form-control", disabled = "disabled" })
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-6">
-                        <label>Data de Início:</label>
-                        @Html.TextBoxFor(x => x.Oferta.DataInicio, new { @class = "form-control", disabled = "disabled" })
+                    <div class="form-group">
+                        <label>Nome do Cliente:</label>
+                        @Html.TextBoxFor(x => x.Cliente.Nome, new { @class = "form-control", disabled = "disabled" })
                     </div>
-                    <div class="col-md-6">
-                        <label>Data de Fim:</label>
-                        @Html.TextBoxFor(x => x.Oferta.DataFim, new { @class = "form-control", disabled = "disabled" })
+                    <div class="form-group">
+                        <label>Anunciante:</label>
+                        @Html.TextBoxFor(x => x.Oferta.Anunciante.NomeFantasia, new { @class = "form-control", disabled = "disabled" })
                     </div>
-                </div>
-                <div class="form-group">
-                    <label>Status:</label>
-                    @Html.TextBox("Oferta.Status", FlashBuy.Util.Helper.GetEnumDescription((FlashBuyClassLibrary.EnumOferta)Model.Oferta.Status), new { @class = "form-control", disabled = "disabled" })
-                </div>
+                    <div class="row form-group">
+                        <div class="col-md-3">
+                            <img src="@imgSrc" style="max-width:100%" class="img-thumbnail" />
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label>Produto: </label>
+                                @Html.TextBoxFor(x => x.Oferta.Produto, new { @class = "form-control", disabled = "disabled" })
+                            </div>
+                            <div class="form-group">
+                                <label>Valor:</label>
+                                @Html.TextBoxFor(x => x.Oferta.Valor, new { @class = "form-control", disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label>Data de Início:</label>
+                            @Html.TextBoxFor(x => x.Oferta.DataInicio, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                        <div class="col-md-6">
+                            <label>Data de Fim:</label>
+                            @Html.TextBoxFor(x => x.Oferta.DataFim, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Status:</label>
+                        @Html.TextBox("Oferta.Status", FlashBuy.Util.Helper.GetEnumDescription((FlashBuyClassLibrary.EnumOferta)Model.Oferta.Status), new { @class = "form-control", disabled = "disabled" })
+                    </div>
 
-                <div class="form-group text-center">
-                    <button type="submit" class="btn btn-primary">Confirmar Venda</button>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary">Confirmar Venda</button>
+                    </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
 </div>
