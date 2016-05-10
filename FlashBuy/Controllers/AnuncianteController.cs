@@ -303,6 +303,11 @@ namespace FlashBuy.Controllers
             if (model.Status != EnumOferta.aprovado)
             {
                 //realizar update da oferta
+                model.Produto = oferta.Produto;
+                model.Valor = oferta.Valor;
+                model.DataInicio = oferta.DataInicio;
+                model.DataFim = oferta.DataFim;
+
                 bool flag = true;
 
                 if (flag)
