@@ -290,7 +290,7 @@ namespace FlashBuy.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditarOferta(Oferta oferta)
+        public ActionResult EditarOferta(Oferta oferta, HttpPostedFileBase File, string Latitude, string Longitude)
         {
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
             if (AnuncianteSessao == null)
@@ -307,8 +307,18 @@ namespace FlashBuy.Controllers
                 model.Valor = oferta.Valor;
                 model.DataInicio = oferta.DataInicio;
                 model.DataFim = oferta.DataFim;
+                model.Anunciante = AnuncianteSessao;
+                if (File != null)
+                {
+                    model.Foto = converterFileToArray(File);
+                    model.NomeArquivo = File.FileName;
+                }
+                if (!string.IsNullOrEmpty(Latitude) && !string.IsNullOrEmpty(Longitude))
+                {
+                    model.LocalOferta = DbGeography.FromText(string.Format("POINT({0} {1})", Latitude, Longitude));
+                }
 
-                bool flag = Anuncianterepositorio.SalvaOferta(model); ;
+                bool flag = Anuncianterepositorio.SalvaOferta(model);
 
                 if (flag)
                 {

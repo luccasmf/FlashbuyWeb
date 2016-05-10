@@ -54,12 +54,23 @@ namespace FlashBuy.Repository
 
         internal bool SalvaOferta(Oferta oferta)
         {
-
-            if(!(oferta.IdOferta>=0))
+            if (!(oferta.IdOferta >= 0))
             {
                 context.Oferta.Add(oferta);
             }
-            
+            else
+            {
+                Oferta of = context.Oferta.Where(o => o.IdOferta == oferta.IdOferta).ToList()[0];
+                //Oferta of = context.Oferta.Find(oferta.IdOferta);
+                of.Produto = oferta.Produto;
+                of.Valor = oferta.Valor;
+                of.DataInicio = oferta.DataInicio;
+                of.DataFim = oferta.DataFim;
+                of.Foto = oferta.Foto;
+                of.NomeArquivo = oferta.NomeArquivo;
+                of.LocalOferta = oferta.LocalOferta;
+            }
+
             if (context.SaveChanges() > 0)
             {
                 return true;

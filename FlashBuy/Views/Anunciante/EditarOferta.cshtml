@@ -24,7 +24,7 @@
                 }
             }
 
-            @using (Html.BeginForm("EditarOferta", "Anunciante", FormMethod.Post))
+            @using (Html.BeginForm("EditarOferta", "Anunciante", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.HiddenFor(x => x.IdOferta)
                 <div class="form-group">
@@ -34,16 +34,28 @@
                     </div>
                     <div class="row form-group">
                         <div class="col-md-3">
-                            <img src="@imgSrc" style="max-width:100%" class="img-thumbnail" />
+                            @if (Model.Status == FlashBuyClassLibrary.EnumOferta.aprovado)
+                            {
+                                <img src="@imgSrc" style="max-width:100%" class="img-thumbnail" />
+                            }
+                            else {
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <input name="File" type="file" class="filestyle" data-buttontext="Procurar">
+                                    <br />
+                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 256px; max-width: 200px; max-height: 150px;"></div>
+                                </div>
+                            }
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
+                                <br/>
+                                <br/>
                                 <label>Produto: </label>
                                 @Html.TextBoxFor(x => x.Produto, Model.Status == FlashBuyClassLibrary.EnumOferta.aprovado ? (object)new { @class = "form-control", disabled = "disabled" } : (object)new { @class = "form-control" })
                             </div>
                             <div class="form-group">
                                 <label>Valor:</label>
-                                @Html.TextBoxFor(x => x.Valor, Model.Status == FlashBuyClassLibrary.EnumOferta.aprovado ? (object)new { @class = "form-control", disabled = "disabled" } : (object)new { @class = "form-control" })
+                                @Html.TextBoxFor(x => x.Valor, Model.Status == FlashBuyClassLibrary.EnumOferta.aprovado ? (object)new { @class = "form-control ValorMonetario", disabled = "disabled" } : (object)new { @class = "form-control" })
                             </div>
                         </div>
                     </div>
@@ -61,7 +73,16 @@
                         <label>Status:</label>
                         @Html.TextBox("Oferta.Status", FlashBuy.Util.Helper.GetEnumDescription((FlashBuyClassLibrary.EnumOferta)Model.Status), new { @class = "form-control", disabled = "disabled" })
                     </div>
-
+                    @if (Model.Status != FlashBuyClassLibrary.EnumOferta.aprovado)
+                    {
+                        <div class="form-group">
+                            <label>Localização da oferta</label>
+                            <div id="map-canvas" style="width:500px;height:380px;"></div>
+                            <input type="hidden" id="txtLatitude" name="Latitude" />
+                            <input type="hidden" id="txtLongitude" name="Longitude" />
+                        </div>
+                    }
+                    
                     <div class="form-group text-center">
                         <button type="button" id="btnCancelar" class="btn btn-default">Cancelar</button>
                         <button type="submit" class="btn btn-primary" @(Model.Status == FlashBuyClassLibrary.EnumOferta.aprovado ? "disabled='disabled'" : "")>Salvar</button>
@@ -74,11 +95,24 @@
 
 
 <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+<script src="~/Scripts/bootstrap-filestyle.min.js"></script>
+<script src="~/Scripts/jquery.price_format.2.0.min.js"></script>
+<script src="~/Scripts/jasny-bootstrap.min.js"></script>
+<script src="~/Scripts/docs.min.js"></script>
+<script src="~/Scripts/widgets.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script src="~/Scripts/GoogleMapsInsert.js"></script>
 <script>
     var $j = jQuery.noConflict();
     $j(document).ready(function () {
         $j(document).on('click', '#btnCancelar', function () {
             parent.history.back();
+        });
+
+        $j('.ValorMonetario').priceFormat({
+            prefix: '',
+            centsSeparator: ',',
+            thousandsSeparator: ''
         });
     });
 </script>
