@@ -54,14 +54,16 @@ namespace FlashBuy.Repository
 
         internal bool SalvaOferta(Oferta oferta)
         {
+
+            Oferta of;
             if (!(oferta.IdOferta >= 0))
             {
                 context.Oferta.Add(oferta);
             }
             else
             {
-                Oferta of = context.Oferta.Where(o => o.IdOferta == oferta.IdOferta).ToList()[0];
-                //Oferta of = context.Oferta.Find(oferta.IdOferta);
+                of = context.Oferta.Where(o => o.IdOferta == oferta.IdOferta).ToList()[0]; //gambiarrinha do Luccas
+
                 of.Produto = oferta.Produto;
                 of.Valor = oferta.Valor;
                 of.DataInicio = oferta.DataInicio;
@@ -69,6 +71,8 @@ namespace FlashBuy.Repository
                 of.Foto = oferta.Foto;
                 of.NomeArquivo = oferta.NomeArquivo;
                 of.LocalOferta = oferta.LocalOferta;
+                of.Status = EnumOferta.pendente;
+                
             }
 
             if (context.SaveChanges() > 0)

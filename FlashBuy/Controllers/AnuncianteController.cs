@@ -297,25 +297,47 @@ namespace FlashBuy.Controllers
             {
                 return Redirect("~/Login");
             }
-
+            
             Oferta model = Anuncianterepositorio.GetOfertaById(oferta.IdOferta, AnuncianteSessao.IdAnunciante);
+
+
+            //gambiarra do Luccas
+            int id = model.IdOferta;
+            var status = model.Status;
+            var local = model.LocalOferta;
+            var foto = model.Foto;
+            var nomeArquivo = model.NomeArquivo;
 
             if (model.Status != EnumOferta.aprovado)
             {
+                model = new Oferta();
                 //realizar update da oferta
+                model.IdOferta = id;
                 model.Produto = oferta.Produto;
                 model.Valor = oferta.Valor;
                 model.DataInicio = oferta.DataInicio;
                 model.DataFim = oferta.DataFim;
                 model.Anunciante = AnuncianteSessao;
+                model.Status = status;
+
                 if (File != null)
                 {
                     model.Foto = converterFileToArray(File);
                     model.NomeArquivo = File.FileName;
                 }
+                else //gambiarra do Luccas
+                {
+                    model.Foto = foto;
+                    model.NomeArquivo = nomeArquivo;
+                }
+
                 if (!string.IsNullOrEmpty(Latitude) && !string.IsNullOrEmpty(Longitude))
                 {
                     model.LocalOferta = DbGeography.FromText(string.Format("POINT({0} {1})", Latitude, Longitude));
+                }
+                else //gambiarra do Luccas
+                {
+                    model.LocalOferta = local;
                 }
 
                 bool flag = Anuncianterepositorio.SalvaOferta(model);
