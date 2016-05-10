@@ -43,10 +43,20 @@ namespace FlashBuy.Repository
             CompraPacote cc = context.CompraPacote.Where(cp => cp.IdCompraPacote == of.IdCompraPacote).FirstOrDefault();
 
             cc.QtdAnuncioDisponivel--;
+            return (SalvaOferta(of));
 
+          
+        }
 
-           context.Oferta.Add(of);
-            if(context.SaveChanges()>0)
+        internal bool SalvaOferta(Oferta oferta)
+        {
+
+            if(!(oferta.IdOferta>=0))
+            {
+                context.Oferta.Add(oferta);
+            }
+            
+            if (context.SaveChanges() > 0)
             {
                 return true;
             }

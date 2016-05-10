@@ -308,7 +308,7 @@ namespace FlashBuy.Controllers
                 model.DataInicio = oferta.DataInicio;
                 model.DataFim = oferta.DataFim;
 
-                bool flag = true;
+                bool flag = Anuncianterepositorio.SalvaOferta(model); ;
 
                 if (flag)
                 {
