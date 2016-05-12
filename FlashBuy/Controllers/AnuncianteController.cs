@@ -93,14 +93,10 @@ namespace FlashBuy.Controllers
                 return Redirect("~/Login");
             }
 
-
-
             if (Anuncianterepositorio.DeletaOferta(id, AnuncianteSessao.IdAnunciante))
             {
                 return RedirectToAction("Index");
             }
-
-
 
             //url.
             return View();
@@ -192,6 +188,18 @@ namespace FlashBuy.Controllers
             List<Compra> compras = Anuncianterepositorio.GetVendasConfirmadas(AnuncianteSessao.IdAnunciante);
             var listaCompras = new HashSet<Compra>(compras);
             return View(listaCompras);
+        }
+
+        public ActionResult Pacotes()
+        {
+            var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
+            if (AnuncianteSessao == null)
+            {
+                return Redirect("~/Login");
+            }
+            List<CompraPacote> listaPacotesAnunciante = new List<CompraPacote>();
+            listaPacotesAnunciante.AddRange(Anuncianterepositorio.GetPacotesAnunciante(AnuncianteSessao.IdAnunciante));
+            return View(listaPacotesAnunciante);
         }
 
         public ActionResult Cancelar(int id)
