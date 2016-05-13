@@ -24,12 +24,15 @@ namespace FlashBuyClassLibrary
 
         public int IdAnunciante { get; set; }
 
+        [DisplayName("Data de validade")]
         public DateTime DataValidade { get; set; }
 
+        [DisplayName("Data de aquisição")]
         public DateTime DataCompra { get; set; }
 
         public virtual Anunciante Anunciante { get; set; }
 
+        [DisplayName("Anuncios disponíveis")]
         public int QtdAnuncioDisponivel { get; set; }
 
         public virtual Pacote Pacote { get; set; }
