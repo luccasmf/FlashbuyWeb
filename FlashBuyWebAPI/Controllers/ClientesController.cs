@@ -109,7 +109,7 @@ namespace FlashBuyWebAPI.Controllers
         /// <returns></returns>
         // POST: api/Clientes/PostLogin?IMEI=432f45b44c432414d2f97df0e5743818&nome=xxxxx
         [ResponseType(typeof(Cliente))]
-        public IHttpActionResult PostLogin(string IMEI,string nome) //IMEI codificado em MD5
+        public IHttpActionResult PostLogin(string IMEI,string nome, string deviceKey) //IMEI codificado em MD5
         {
 
             IMEI = IMEI.Trim();
@@ -128,6 +128,7 @@ namespace FlashBuyWebAPI.Controllers
                     Cliente c = new Cliente();
                     c.IMEI = IMEI;
                     c.Nome = nome;
+                    c.DeviceKey = deviceKey;
 
                     db.Cliente.Add(c);
                     if (db.SaveChanges() > 0)
