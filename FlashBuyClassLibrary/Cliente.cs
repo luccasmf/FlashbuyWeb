@@ -28,7 +28,8 @@ namespace FlashBuyClassLibrary
         [StringLength(50)]
         [DisplayName("Usuário")]
         public string Nome { get; set; }
-        
+
+        [Column(TypeName = "text")]
         public string DeviceKey { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
