@@ -15,6 +15,7 @@ namespace FlashBuy.Controllers
     {
         AnuncianteRepository Anuncianterepositorio = new AnuncianteRepository();
         CompraRepository CompraRepositorio = new CompraRepository();
+        PacoteRepository PacoteRepositorio = new PacoteRepository();
         Uri urlAtual;
         // GET: Anunciante
         public ActionResult Index()
@@ -202,6 +203,33 @@ namespace FlashBuy.Controllers
             return View(listaPacotesAnunciante);
         }
 
+        [HttpGet]
+        public ActionResult ComprarNovo()
+        {
+            List<Pacote> listaPacotes = new List<Pacote>();
+            listaPacotes.AddRange(PacoteRepositorio.GetPacotes());
+            var lista = new List<SelectListItem>();
+            foreach (var item in listaPacotes)
+            {
+                lista.Add(new SelectListItem() { Text = "Valor: R$ " + item.Valor.ToString() + " - Quantidade de anúncios: " + item.QtdAnuncio.ToString() + " - Duração Pacote: " + item.DuracaoPacote.ToString() + " dias", Value = item.IdPacote.ToString() });
+            }
+            ViewBag.ListaPacotes = lista;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ComprarNovo(int idPacote)
+        {
+            var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
+            if (AnuncianteSessao == null)
+            {
+                return Redirect("~/Login");
+            }
+            //Luccas, completar o backend por favor!
+            //PacoteRepositorio.ConfirmarCompraNovo(AnuncianteSessao.IdAnunciante, idPacote);
+            return RedirectToAction("Pacotes");
+        }
+
         public ActionResult Cancelar(int id)
         {
             var AnuncianteSessao = (Anunciante)Session["AnuncianteSessao"];
@@ -305,7 +333,7 @@ namespace FlashBuy.Controllers
             {
                 return Redirect("~/Login");
             }
-            
+
             Oferta model = Anuncianterepositorio.GetOfertaById(oferta.IdOferta, AnuncianteSessao.IdAnunciante);
 
 
@@ -363,7 +391,8 @@ namespace FlashBuy.Controllers
                     return View("EditarOferta", model);
                 }
             }
-            else {
+            else
+            {
                 ViewBag.Status = "Error";
                 ViewBag.Message = "Esta oferta já está aprovada e não é possível realizar alterações.";
                 return View("EditarOferta", model);

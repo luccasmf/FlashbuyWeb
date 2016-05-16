@@ -156,6 +156,7 @@
     <Compile Include="Repository\AnuncianteRepository.cs" />
     <Compile Include="Repository\LoginRepository.cs" />
     <Compile Include="Repository\OfertaRepository.cs" />
+    <Compile Include="Repository\PacoteRepository.cs" />
     <Compile Include="Util\Helper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +179,8 @@
     <Content Include="Views\Administrador\Ofertas.cshtml" />
     <Content Include="Views\Administrador\Usuarios.cshtml" />
     <Content Include="Views\Anunciante\EditarOferta.cshtml" />
+    <Content Include="Views\Anunciante\ComprarNovo.cshtml" />
+    <Content Include="Views\Anunciante\Pacotes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

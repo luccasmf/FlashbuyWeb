@@ -1,0 +1,47 @@
+﻿@model IEnumerable<FlashBuyClassLibrary.CompraPacote>
+
+@{
+    ViewBag.Title = "Pacotes";
+    Layout = "~/Views/Shared/_LayoutPageAnunciante.cshtml";
+}
+
+<h2>Pacotes</h2>
+
+<p>
+    @Html.ActionLink("Comprar Novo Pacote", "ComprarNovo")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdCompraPacote)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataValidade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataCompra)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QtdAnuncioDisponivel)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCompraPacote)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataValidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataCompra)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QtdAnuncioDisponivel)
+            </td>
+        </tr>
+    }
+
+</table>
