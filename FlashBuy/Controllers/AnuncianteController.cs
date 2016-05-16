@@ -225,9 +225,20 @@ namespace FlashBuy.Controllers
             {
                 return Redirect("~/Login");
             }
-            //Luccas, completar o backend por favor!
-            //PacoteRepositorio.ConfirmarCompraNovo(AnuncianteSessao.IdAnunciante, idPacote);
-            return RedirectToAction("Pacotes");
+            
+            bool flag = PacoteRepositorio.ConfirmarCompraNovo(AnuncianteSessao.IdAnunciante, idPacote);
+
+            if(flag)
+            {
+                return RedirectToAction("Pacotes");
+            }
+            else
+            {
+                ViewBag.Status = "Error";
+                ViewBag.Message = "Ocorreu um erro ao executar esta operação.";
+                return View("Pacotes");
+            }
+            
         }
 
         public ActionResult Cancelar(int id)
