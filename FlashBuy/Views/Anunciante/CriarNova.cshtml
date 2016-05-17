@@ -9,59 +9,59 @@
     <div class="panel-body">
         @using (Html.BeginForm("CriarNova", "Anunciante", FormMethod.Post, new { enctype = "multipart/form-data", @id = "CriarNovaOfertaForm" }))
         {
-        <div class="form-group">
-            <label>Descrição do produto *</label>
-            @Html.TextBoxFor(x => x.Produto, new { @class = "form-control", @maxlenght = "3000", @required = "required"  })
-        </div>
-        <div class="form-group">
-            <label>Valor *</label>
-            @Html.TextBoxFor(x => x.Valor, new { @class = "form-control ValorMonetario", @required = "required"  })
-        </div>        
-        <div class="form-group">
-            <label>Data/Hora Início *</label>
-            @Html.TextBoxFor(x => x.DataInicio, new { @class = "form-control", @placeholder = "Data Inicio", @type = "datetime-local", @required = "required"  })
-        </div>
-        <div class="form-group">
-            <label>Data/Hora Fim *</label>
-            @Html.TextBoxFor(x => x.DataFim, new { @class = "form-control", @placeholder = "Data Fim", @type = "datetime-local", @required = "required"  })
-        </div>
-        <div class="form-group">
-            <label>Selecione seu pacote</label>
-            @Html.DropDownListFor(x => x.IdCompraPacote, new SelectList(ViewBag.listaPacotesAnunciante, "Value", "Text"), new { @class = "form-control", @required = "required" })
-        </div>
-        <div class="form-group">
-            <label>Imagem do produto</label>
-            <div class="fileinput fileinput-new" data-provides="fileinput">
-                <input name="File" type="file" class="filestyle" data-buttontext="Procurar">
-                <br />
-                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 256px; max-width: 200px; max-height: 150px;"></div>
+            <div class="form-group">
+                <label>Descrição do produto *</label>
+                @Html.TextBoxFor(x => x.Produto, new { @class = "form-control", @maxlenght = "3000", @required = "required" })
             </div>
-        </div>
-        <div class="form-group">
-            <label>Localização da oferta</label>
-            <div id="map-canvas" style="width:500px;height:380px;"></div>
-            <input type="hidden" id="txtLatitude" name="Latitude"/>
-            <input type="hidden" id="txtLongitude" name="Longitude"/>
-        </div>
-        <div class="form-group text-center">
-            <button type="submit" class="btn btn-primary">Salvar</button>
-        </div>
+            <div class="form-group">
+                <label>Valor *</label>
+                @Html.TextBoxFor(x => x.Valor, new { @class = "form-control ValorMonetario", @required = "required" })
+            </div>
+            <div class="form-group">
+                <label>Data/Hora Início *</label>
+                @Html.TextBoxFor(x => x.DataInicio, new { @class = "form-control", @placeholder = "Data Inicio", @type = "datetime-local", @required = "required" })
+            </div>
+            <div class="form-group">
+                <label>Data/Hora Fim *</label>
+                @Html.TextBoxFor(x => x.DataFim, new { @class = "form-control", @placeholder = "Data Fim", @type = "datetime-local", @required = "required" })
+            </div>
+            <div class="form-group">
+                <label>Selecione seu pacote</label>
+                @Html.DropDownListFor(x => x.IdCompraPacote, new SelectList(ViewBag.listaPacotesAnunciante, "Value", "Text"), new { @class = "form-control", @required = "required" })
+            </div>
+            <div class="form-group">
+                <label>Imagem do produto</label>
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+                    <input name="File" type="file" class="filestyle" data-buttontext="Procurar">
+                    <br />
+                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 256px; max-width: 200px; max-height: 150px;"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Localização da oferta</label>
+                <div id="map-canvas" style="width:500px;height:380px;"></div>
+                <input type="hidden" id="txtLatitude" name="Latitude" />
+                <input type="hidden" id="txtLongitude" name="Longitude" />
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
 
         }
     </div>
 </div>
 
-    @section Scripts
+@section Scripts
     {
-<script src="~/Scripts/bootstrap-filestyle.min.js"></script>
-<script src="~/Scripts/jquery.price_format.2.0.min.js"></script>
-<script src="~/Scripts/jasny-bootstrap.min.js"></script>
-<script src="~/Scripts/docs.min.js"></script>
-<script src="~/Scripts/widgets.js"></script>
-<script src="http://maps.googleapis.com/maps/api/js"></script>
-<script src="~/Scripts/GoogleMapsInsert.js"></script>
+    <script src="~/Scripts/bootstrap-filestyle.min.js"></script>
+    <script src="~/Scripts/jquery.price_format.2.0.min.js"></script>
+    <script src="~/Scripts/jasny-bootstrap.min.js"></script>
+    <script src="~/Scripts/docs.min.js"></script>
+    <script src="~/Scripts/widgets.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    <script src="~/Scripts/GoogleMapsInsert.js"></script>
 
-<script>
+    <script>
     $(document).ready(function () {
         $('.ValorMonetario').priceFormat({
             prefix: '',
@@ -70,5 +70,5 @@
         });
     });
 
-</script>
-    }
+    </script>
+}
