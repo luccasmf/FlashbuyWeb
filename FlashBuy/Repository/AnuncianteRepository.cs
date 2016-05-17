@@ -56,7 +56,7 @@ namespace FlashBuy.Repository
         {
 
             Oferta of;
-            if (!(oferta.IdOferta >= 0))
+            if (!(oferta.IdOferta > 0))
             {
                 context.Oferta.Add(oferta);
             }

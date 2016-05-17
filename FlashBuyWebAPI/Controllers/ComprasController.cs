@@ -47,8 +47,9 @@ namespace FlashBuyWebAPI.Controllers
                 if (c.Oferta == null)
                 {
                     c.Oferta = db.Oferta.FirstOrDefault(p => p.IdOferta == c.IdOferta);
-                    c.Oferta.Compra = null;
+                    c.Oferta.Compra = null;                   
                 }
+                
                 try
                 {
                     c.Oferta.imgMime = imgToString64(c.Oferta);
@@ -56,8 +57,7 @@ namespace FlashBuyWebAPI.Controllers
                 }
                 catch { }            
             }
-
-           
+            
 
             if (comprasDoCliente.Count() == 0)
             {
