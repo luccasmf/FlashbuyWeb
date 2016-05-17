@@ -41,29 +41,29 @@ namespace FlashBuyWebAPI.Controllers
         {
             OfertasController oc = new OfertasController();
              List<Compra> comprasDoCliente = db.Compra.Where(p => p.IdCliente == idCliente).ToList();
-            List<Oferta> ofertas = new List<Oferta>();
-            foreach(Compra c in comprasDoCliente)
-            {
-                Oferta o = new Oferta();
-                o = db.Oferta.FirstOrDefault(p => p.IdOferta == c.IdOferta);
-                o.Compra = null;
 
+            foreach (Compra c in comprasDoCliente)
+            {
+                if (c.Oferta == null)
+                {
+                    c.Oferta = db.Oferta.FirstOrDefault(p => p.IdOferta == c.IdOferta);
+                    c.Oferta.Compra = null;
+                }
                 try
                 {
-                    o.imgMime = imgToString64(o);
-                    o.Foto = null;
+                    c.Oferta.imgMime = imgToString64(c.Oferta);
+                    c.Oferta.Foto = null;
                 }
-                catch { }
-                ofertas.Add(o);
+                catch { }            
             }
 
            
 
-            if (ofertas.Count() == 0)
+            if (comprasDoCliente.Count() == 0)
             {
                 return NotFound();
             }
-            return Ok(ofertas);
+            return Ok(comprasDoCliente);
         }
 
         // PUT: api/Compras/5
