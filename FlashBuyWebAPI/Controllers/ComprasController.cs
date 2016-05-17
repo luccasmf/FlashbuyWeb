@@ -158,6 +158,7 @@ namespace FlashBuyWebAPI.Controllers
                 c.IdOferta = idOferta;
                 c.Status = EnumCompra.Visualizado;
                 c.DataHora = DateTime.Now;
+                c.Votou = false;
 
                 db.Compra.Add(c);
                 db.SaveChanges();

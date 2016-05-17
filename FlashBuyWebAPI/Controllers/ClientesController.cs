@@ -183,9 +183,11 @@ namespace FlashBuyWebAPI.Controllers
             return db.Cliente.Count(e => e.IdCliente == id) > 0;
         }
 
-        public IHttpActionResult PostVotaAnunciante(int idAnunciante, bool voto)
+        public IHttpActionResult PostVotaAnunciante(int idCompra, bool voto)
         {
-            Anunciante a = db.Anunciante.Find(idAnunciante);
+            Compra c = db.Compra.Find(idCompra);
+            
+            Anunciante a = db.Anunciante.Find(c.Oferta.IdAnunciante);
 
             if(voto)
             {
@@ -196,9 +198,11 @@ namespace FlashBuyWebAPI.Controllers
                 a.VotoPositivo--;
             }
 
+            c.Votou = true;
+
             try
             {
-                db.SaveChanges();
+                db.SaveChanges();                
                 return Ok(true);
             }
             catch
@@ -206,5 +210,7 @@ namespace FlashBuyWebAPI.Controllers
                 return NotFound();
             }
         }
+
+        
     }
 }

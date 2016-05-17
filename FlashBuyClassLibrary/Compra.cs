@@ -23,6 +23,8 @@ namespace FlashBuyClassLibrary
         [DisplayName("Status da compra")]
         public EnumCompra Status { get; set; }
 
+        public bool Votou { get; set; }
+
         public virtual Cliente Cliente { get; set; }
 
         public virtual Oferta Oferta { get; set; }
