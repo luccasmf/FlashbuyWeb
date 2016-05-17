@@ -186,8 +186,8 @@ namespace FlashBuyWebAPI.Controllers
         public IHttpActionResult PostVotaAnunciante(int idCompra, bool voto)
         {
             Compra c = db.Compra.Find(idCompra);
-            
-            Anunciante a = db.Anunciante.Find(c.Oferta.IdAnunciante);
+            Oferta o = db.Oferta.Find(c.IdOferta);
+            Anunciante a = db.Anunciante.Find(o.IdAnunciante);
 
             if(voto)
             {
