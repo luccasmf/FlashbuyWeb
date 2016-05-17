@@ -47,10 +47,19 @@ namespace FlashBuyWebAPI.Controllers
                 Oferta o = new Oferta();
                 o = db.Oferta.FirstOrDefault(p => p.IdOferta == c.IdOferta);
                 o.Compra = null;
+
+                try
+                {
+                    o.imgMime = imgToString64(o);
+                    o.Foto = null;
+                }
+                catch { }
                 ofertas.Add(o);
             }
 
-            if(ofertas.Count() == 0)
+           
+
+            if (ofertas.Count() == 0)
             {
                 return NotFound();
             }
@@ -167,6 +176,13 @@ namespace FlashBuyWebAPI.Controllers
             return (db.SaveChanges()>0);
         }
 
-        
+        private string imgToString64(Oferta entidade)
+        {
+
+            return String.Concat("data:", System.Web.MimeMapping.GetMimeMapping(entidade.NomeArquivo), ";base64,", System.Convert.ToBase64String(entidade.Foto));
+
+        }
+
+
     }
 }
