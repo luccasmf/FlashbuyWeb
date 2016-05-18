@@ -75,12 +75,22 @@ function handleNoGeolocation(errorFlag) {
 
     var options = {
         map: map,
-        position: new google.maps.LatLng(60, 105),
+        position: new google.maps.LatLng(-15, -47),
         content: content
     };
 
-    infowindow = new google.maps.InfoWindow(options);
+    var mapOptions = {
+        zoom: 3,
+        disableDefaultUI: true
+    };
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+    google.maps.event.addListener(map, 'click', function (event) {
+        addMarker(event.latLng);
+    });
+    //infowindow = new google.maps.InfoWindow(options);
     map.setCenter(options.position);
+
 }
 
 // Removes the markers from the map, but keeps them in the array.
