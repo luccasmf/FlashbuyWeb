@@ -42,7 +42,7 @@
                                 <div class="fileinput fileinput-new" data-provides="fileinput">
                                     <input name="File" type="file" class="filestyle" data-buttontext="Procurar">
                                     <br />
-                                    <img src="@imgSrc" style="max-width:100%" class="img-thumbnail"/>
+                                    <img src="@imgSrc" style="max-width:100%" class="img-thumbnail" />
                                 </div>
                             }
                         </div>
@@ -51,26 +51,26 @@
                                 <br />
                                 <br />
                                 <label>Produto: </label>
-                                @Html.TextBoxFor(x => x.Produto, Model.Status == FlashBuyClassLibrary.EnumOferta.aprovado ? (object)new { @class = "form-control", disabled = "disabled" } : (object)new { @class = "form-control" })
+                                @Html.TextBoxFor(x => x.Produto, Model.Status == FlashBuyClassLibrary.EnumOferta.aprovado ? (object)new { @class = "form-control", disabled = "disabled" } : (object)new { @class = "form-control", @required = "required" })
                             </div>
                             <div class="form-group">
                                 <label>Valor:</label>
-                                @Html.TextBoxFor(x => x.Valor, Model.Status == FlashBuyClassLibrary.EnumOferta.aprovado ? (object)new { @class = "form-control ValorMonetario", disabled = "disabled" } : (object)new { @class = "form-control" })
+                                @Html.TextBoxFor(x => x.Valor, Model.Status == FlashBuyClassLibrary.EnumOferta.aprovado ? (object)new { @class = "form-control ValorMonetario", disabled = "disabled" } : (object)new { @class = "form-control ValorMonetario", @required = "required" })
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label>Data de Início:</label>
-                            @Html.TextBoxFor(x => x.DataInicio, Model.Status == FlashBuyClassLibrary.EnumOferta.aprovado ? (object)new { @class = "form-control", disabled = "disabled" } : (object)new { @class = "form-control" })
+                            @Html.TextBox("DataInicio", Model.Status == FlashBuyClassLibrary.EnumOferta.aprovado ? Model.DataInicio.ToString() : Model.DataInicio.ToString("yyyy-MM-ddTHH:mm:ss"), Model.Status == FlashBuyClassLibrary.EnumOferta.aprovado ? (object)new { @class = "form-control", disabled = "disabled" } : (object)new { @class = "form-control", @type = "datetime-local", @required = "required" })
                         </div>
                         <div class="col-md-6">
                             <label>Data de Fim:</label>
-                            @Html.TextBoxFor(x => x.DataFim, Model.Status == FlashBuyClassLibrary.EnumOferta.aprovado ? (object)new { @class = "form-control", disabled = "disabled" } : (object)new { @class = "form-control" })
+                            @Html.TextBox("DataFim", Model.Status == FlashBuyClassLibrary.EnumOferta.aprovado ? Model.DataFim.ToString() : Model.DataFim.ToString("yyyy-MM-ddTHH:mm:ss"), Model.Status == FlashBuyClassLibrary.EnumOferta.aprovado ? (object)new { @class = "form-control", disabled = "disabled" } : (object)new { @class = "form-control", @type = "datetime-local", @required = "required" })
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Status:</label>
+                        <label>Status:</label>                                      
                         @Html.TextBox("Oferta.Status", FlashBuy.Util.Helper.GetEnumDescription((FlashBuyClassLibrary.EnumOferta)Model.Status), new { @class = "form-control", disabled = "disabled" })
                     </div>
                     @if (Model.Status != FlashBuyClassLibrary.EnumOferta.aprovado)
