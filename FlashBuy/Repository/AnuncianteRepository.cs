@@ -35,8 +35,14 @@ namespace FlashBuy.Repository
 
         internal List<CompraPacote> GetPacotesAnunciante(int idAnunciante)
         {
-            return context.CompraPacote.Where(p => p.IdAnunciante == idAnunciante && p.DataValidade >= DateTime.Now).ToList();
+            return context.CompraPacote.Where(p => p.IdAnunciante == idAnunciante).OrderBy(p => p.DataValidade).ToList();
         }
+
+        internal List<CompraPacote> GetPacotesAtivosAnunciante(int idAnunciante)
+        {
+            return context.CompraPacote.Where(p => p.IdAnunciante == idAnunciante && p.DataValidade >= DateTime.Now && p.QtdAnuncioDisponivel >0).OrderBy(p => p.DataValidade).ToList();
+        }
+        
 
         internal bool CriaNovaOferta(Oferta of)
         {

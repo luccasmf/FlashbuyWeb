@@ -42,7 +42,7 @@ namespace FlashBuy.Controllers
             }
 
             List<CompraPacote> listaPacotesAnunciante = new List<CompraPacote>();
-            listaPacotesAnunciante.AddRange(Anuncianterepositorio.GetPacotesAnunciante(AnuncianteSessao.IdAnunciante));
+            listaPacotesAnunciante.AddRange(Anuncianterepositorio.GetPacotesAtivosAnunciante(AnuncianteSessao.IdAnunciante));
             var SelectListItem = new List<SelectListItem>();
             foreach (var item in listaPacotesAnunciante)
             {
