@@ -45,6 +45,7 @@ namespace FlashBuy.Repository
             if (SalvaOferta(of))
             {
                 cc.QtdAnuncioDisponivel--;
+                context.SaveChanges();
                 return true;
             }
             return false;
