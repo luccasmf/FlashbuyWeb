@@ -11,6 +11,7 @@ using System.Data.Entity.Spatial;
 
 namespace FlashBuy.Controllers
 {
+    [Authorize]
     public class AnuncianteController : Controller
     {
         AnuncianteRepository Anuncianterepositorio = new AnuncianteRepository();
@@ -200,7 +201,7 @@ namespace FlashBuy.Controllers
             }
             List<CompraPacote> listaPacotesAnunciante = new List<CompraPacote>();
             listaPacotesAnunciante.AddRange(Anuncianterepositorio.GetPacotesAnunciante(AnuncianteSessao.IdAnunciante));
-            return View(listaPacotesAnunciante);
+            return View(listaPacotesAnunciante.OrderBy(p => p.IdCompraPacote));
         }
 
         [HttpGet]

@@ -60,5 +60,12 @@ namespace FlashBuy.Controllers
                 return View();
             }
         }
+
+        public ActionResult Sair()
+        {
+            Session.Abandon();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index");
+        }
     }
 }

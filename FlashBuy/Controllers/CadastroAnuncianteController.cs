@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace FlashBuy.Controllers
 {
+    [Authorize]
     public class CadastroAnuncianteController : Controller
     {
         // GET: CadastroAnunciante

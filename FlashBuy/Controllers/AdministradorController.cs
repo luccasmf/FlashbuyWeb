@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace FlashBuy.Controllers
 {
+    [Authorize]
     public class AdministradorController : Controller
     {
         AdministradorRepository repositorio = new AdministradorRepository();
