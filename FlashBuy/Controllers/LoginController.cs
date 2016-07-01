@@ -19,6 +19,18 @@ namespace FlashBuy.Controllers
             listaTiposUsuarios.Add(new SelectListItem() { Text = "Anunciante", Value = "Anunciante" });
             listaTiposUsuarios.Add(new SelectListItem() { Text = "Administrador", Value = "Administrador" });
             ViewBag.listaTiposUsuarios = listaTiposUsuarios;
+
+            if (TempData["Status"] != null)
+            {
+                ViewBag.Status = TempData["Status"].ToString();
+                TempData.Remove("Status");
+            }
+            if (TempData["Message"] != null)
+            {
+                ViewBag.Message = TempData["Message"].ToString();
+                TempData.Remove("Message");
+            }
+
             return View();
         }
 

@@ -35,6 +35,15 @@
                     <a class="navbar-brand" href="#">FlashBuy</a>
                 </div>
         </nav>
+        <div style="display:@(ViewBag != null && ViewBag.Status != null && ViewBag.Status == "Success" ? "block" : "none")" class="alert alert-success">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            @ViewBag.Message
+        </div>
+        <div style="display:@(ViewBag != null &&  ViewBag.Status != null && ViewBag.Status == "Error" ? "block" : "none")" class="alert alert-danger">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            @ViewBag.Message
+        </div>
+
         @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form-signin" }))
         {
             <h2 class="form-signin-heading">Conecte-se</h2>

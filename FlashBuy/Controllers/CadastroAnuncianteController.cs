@@ -6,7 +6,6 @@ using System.Web.Mvc;
 
 namespace FlashBuy.Controllers
 {
-    [Authorize]
     public class CadastroAnuncianteController : Controller
     {
         // GET: CadastroAnunciante
@@ -23,21 +22,21 @@ namespace FlashBuy.Controllers
                 var anuncianteRep = new Repository.AnuncianteRepository();
                 if (anuncianteRep.GetAnuncianteByEmail(model.Email))
                 {
-                    ViewBag.Status = "Error";
-                    ViewBag.Message = "E-mail já cadastrado na base de dados.";
-                    return View("Index");
+                    TempData["Status"] = "Error";
+                    TempData["Message"] = "E-mail já cadastrado na base de dados.";
+                    return RedirectToAction("Index","Login");
                 }
 
                 anuncianteRep.Salvar(model);
 
-                ViewBag.Status = "Success";
-                ViewBag.Message = "Anunciante cadastrado com sucesso!";
-                return View("Index");
+                TempData["Status"] = "Success";
+                TempData["Message"] = "Anunciante cadastrado com sucesso!";
+                return RedirectToAction("Index","Login");
             }
             catch (Exception ex)
             {
-                ViewBag.Status = "Error";
-                ViewBag.Message = ex.Message;
+                TempData["Status"] = "Error";
+                TempData["Message"] = ex.Message;
                 return View("Index");
             }
         }
